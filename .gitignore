@@ -1,5 +1,4 @@
 # LaTeX
-assignment*[0-9][0-9]/LaTeX/*
-!assignment*[0-9][0-9]/LaTeX/*.tex
-!assignment*[0-9][0-9]/LaTeX/*.pdf
-
+*/assignment_[0-9][0-9]/report/LaTeX/*
+!*/assignment_[0-9][0-9]/report/LaTeX/*.tex
+!*/assignment_[0-9][0-9]/report/LaTeX/*.pdf
