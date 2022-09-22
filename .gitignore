@@ -1,0 +1,5 @@
+# LaTeX
+assignment*[0-9]/LaTeX/*
+!assignment*[0-9]/LaTeX/*.tex
+!assignment*[0-9]/LaTeX/*.pdf
+
