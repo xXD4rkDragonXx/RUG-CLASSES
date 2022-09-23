@@ -52,27 +52,29 @@ def main():
     # with open("2.in.txt", "r") as f:
     #     lines = f.readlines()
 
-    # # get query
-    # query = lines[0].strip()
+    lines = sys.stdin.readlines()
+    # for line in sys.stdin.readlines():
+    #     lines.append(line)
 
-    # input_text = []
-    # # get input text
-    # for lines in lines[1:]:
-    #     input_text.append(lines.strip())
+    # get query
+    query = lines[0].strip()
 
     input_text = []
-    for line in sys.stdin:
-        # get first line
-        if line.startswith("e") or line.startswith("d"):
-            query = line.rstrip()
-        # get other lines
-        else:
-            input_text.append(line.rstrip())
+    # get input text
+    for lines in lines[1:]:
+        input_text.append(lines.strip())
+
+    # query = input()
+    # input_text = []
+    # while(True):
+    #     try:
+    #         input_text.append(input())
+    #         # print(handle_input(query, lines))
+    #     except EOFError:
+    #         break
 
 
     for lines in input_text:
-        if len(input_text) > 2:
-            raise Exception(input_text)
         print(handle_input(query, lines))
 
 if __name__ == "__main__":
