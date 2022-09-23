@@ -1,3 +1,6 @@
+import sys
+
+
 # substitution cypher
 
 # Encrypts a string using a shift cypher
@@ -45,7 +48,7 @@ def decryptMapping(cipher_text, mapping):
     for char in cipher_text:
         if char.isalpha():
             if char.isupper():
-                plain_text += chr(mapping.index(char) + 65)
+                plain_text += chr(mapping.index(char.lower()) + 97).upper()
             else:
                 plain_text += chr(mapping.index(char) + 97)
         else:
@@ -80,10 +83,13 @@ def stringToInt(string):
 
 # Main function
 def main():
-    query = input("Enter query : (d | e) (mapping | shift) \n")
-    input_text = input("Enter text to apply query \n")
-    output = handle_input(query, input_text)
-    print("Output: ", output)
+    query = input()
+    while(True):
+        try:
+            plain_text = input()
+            print(handle_input(query, plain_text))
+        except EOFError:
+            break
 
 # Run main function
 if __name__ == "__main__":
