@@ -48,13 +48,7 @@ def handle_input(query, input_text):
 
 def main():
 
-    # # get lines from file
-    # with open("2.in.txt", "r") as f:
-    #     lines = f.readlines()
-
     lines = sys.stdin.readlines()
-    # for line in sys.stdin.readlines():
-    #     lines.append(line)
 
     # get query
     query = lines[0].strip()
@@ -63,15 +57,6 @@ def main():
     # get input text
     for lines in lines[1:]:
         input_text.append(lines.strip())
-
-    # query = input()
-    # input_text = []
-    # while(True):
-    #     try:
-    #         input_text.append(input())
-    #         # print(handle_input(query, lines))
-    #     except EOFError:
-    #         break
 
 
     for lines in input_text:
