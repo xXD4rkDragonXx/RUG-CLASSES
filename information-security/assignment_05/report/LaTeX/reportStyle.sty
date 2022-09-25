@@ -1,0 +1,113 @@
+\ProvidesPackage{reportStyle}[2022/09/25 Package for the start of Information Security report writing]
+
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{
+  family=MCS,
+  prefix=MCS@
+}
+
+
+\RequirePackage[english]{babel}
+
+\RequirePackage{todonotes}
+
+%Fonts
+\RequirePackage[sc]{mathpazo}
+\RequirePackage[T1]{fontenc}
+\linespread{1.05}
+\RequirePackage{lmodern}
+\RequirePackage{microtype}
+\RequirePackage{lettrine}
+
+%Layout 
+\RequirePackage{a4wide}
+\RequirePackage{titlesec}
+\titleformat{\section}[block]{\large\scshape}{\thesection.}{1em}{}
+\titleformat{\subsection}[block]{\large\scshape}{\thesubsection.}{1em}{}
+\titleformat{\subsubsection}[block]{\scshape}{\thesubsubsection.}{1em}{}
+
+%Grahpics
+\RequirePackage{float}
+\RequirePackage{graphicx}
+\RequirePackage[hang, small,labelfont=bf,up,textfont=sl,up, justification=raggedright]{caption}
+\RequirePackage{subcaption}
+\DeclareCaptionLabelFormat{opening}{(#2)}
+\captionsetup{subrefformat=opening}
+
+%Listings
+\RequirePackage{color}
+\RequirePackage{courier}
+
+\definecolor{light-gray}{gray}{0.95}
+
+\RequirePackage{listings}
+\lstset{frame=tb,
+  language=Python,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  backgroundcolor=\color{backcolour},
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%Math
+\RequirePackage[scientific-notation=true, round-mode=figures, round-precision=3, exponent-base=e, exponent-product={}]{siunitx}
+\RequirePackage{mathtools}
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+\RequirePackage{amssymb}
+
+% References
+\RequirePackage{varioref}
+\RequirePackage{hyperref}
+\RequirePackage[noabbrev]{cleveref}
+
+\crefname{lstlisting}{listing}{listings}
+\Crefname{lstlisting}{Listing}{Listings}
+
+%Bibliography
+\RequirePackage[backend=bibtex]{biblatex}
+\RequirePackage{csquotes}
+\bibliography{biblio}
+
+%Define title
+\DeclareStringOption[-1]{assignmentNumber}[-1]
+\DeclareStringOption[nameless]{authorOne}[nameless]
+\DeclareStringOption[-1]{studentNumberOne}[-1]
+\DeclareStringOption[nameless]{authorZero}[nameless]
+\DeclareStringOption[-1]{studentNumberZero}[-1]
+\DeclareStringOption[-1]{groupNumber}[-1]
+\ProcessKeyvalOptions*
+\author{%
+	Group \MCS@groupNumber~\\\MCS@authorZero{} ({\sc s}\MCS@studentNumberZero) \& \MCS@authorOne{} ({\sc s}\MCS@studentNumberOne)
+}
+\title{Information Security\\Assignment \MCS@assignmentNumber}
+
+%Operators
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\DeclarePairedDelimiter\norm{\lVert}{\rVert}%
+
+\makeatletter
+\let\oldabs\abs
+\def\abs{\@ifstar{\oldabs}{\oldabs*}}
+%
+\let\oldnorm\norm
+\def\norm{\@ifstar{\oldnorm}{\oldnorm*}}
+%
+\let\oldexp\exp
+\makeatother             
+
+%Renewed commands
+\renewcommand{\t}[1]{\texttt{#1}}
+\renewcommand{\vec}[1]{\ensuremath{\boldsymbol{#1}}}
+\renewcommand{\exp}[1]{\ensuremath{e^{#1}}}
