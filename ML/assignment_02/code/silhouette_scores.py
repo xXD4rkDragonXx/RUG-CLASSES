@@ -46,8 +46,6 @@ for nClusters in nclustersList:
         hac = AgglomerativeClustering(
             n_clusters=nClusters, affinity=AFFINITY, linkage=linkage)
         hac.fit(data)
-        print(ownSilhouetteScore(data, hac.labels_))
-        print(silhouette_score(data, hac.labels_))
         results[linkage].append(silhouette_score(data, hac.labels_, ))
 
 # display results in a bar chart
