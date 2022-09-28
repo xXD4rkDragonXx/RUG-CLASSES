@@ -320,8 +320,10 @@ This is because the distance between the points is the smallest for this combina
 
 The dendrograms for the different linkages are shown in \autoref{fig:1:dendrogram_single}, \autoref{fig:2:dendrogram_complete}, \autoref{fig:3:dendrogram_average} and \autoref{fig:4:dendrogram_ward}.
 The optimal number of clusters is 3 for all the linkages.
-The single linkage delivers the worst results because the clusters are very spread out.
-
+The single linkage delivers the worst results because the clusters are very spread out and the splits are higher in the dendrogram.
+In dendrograms you want the split to be as close as possible to the bottom of the dendrogram.
+The ward linkage delivers the best results because the clusters are not very spread out and the splits are lower in the dendrogram.
+The average linkage delivers the second best results because the clusters are not very spread out and the splits are lower in the dendrogram than the sinle linkage.
 
 \section{Work distribution}
 
