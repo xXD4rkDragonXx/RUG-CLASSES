@@ -12,16 +12,117 @@
 
 \maketitle
 
-\section*{Exersize 1}
+\section*{Introduction}
+In this report, results of the second assignment of the course Machine Learning will be discussed.
+The assignment was to implement the agglomerative hierarchical clustering algorithm.
+Different linkage methods were implemented and tested on the dataset delivered by the course.
+The results of the different linkage methods and finding the optimal number
+of clusters are discussed in this report.
 
-\section*{Exersize 2}
+\section*{Methods}
+The agglomerative hierarchical clustering algorithm is an iterative algorithm which
+starts with each data point in its own cluster.
+The algorithm then iteratively merges the two closest clusters.
+The distance between two clusters is defined by the linkage method.
+The algorithm stops when all data points are in one cluster.
+After the algorithm has finished, the data points are clustered in a tree structure.
+The tree structure can be used to find the optimal number of clusters.
+Four linkage methods that may be used are single, complete, average and ward's linkage.
+\par
+Single linkage uses the minimum distance between objects in two clusters.
+To determine the distance between two clusters, the minimum distance between
+all objects in the two clusters is used. This works well for clusters that are
+clearly separated.
+Complete linkage uses the maximum distance between objects in two clusters.
+To determine the distance between two clusters, the maximum distance between
+all objects in the two clusters is used, this is the opposite of single linkage.
+This can lead to clusters that are very spread out because clusters with closer
+objects may not be merged because it has objects that are further away.
+Both of the last two linkage methods are higly sensitive to outliers and noise.
+Average linkage uses the average distance between objects in two clusters.
+It uses the average distance between all objects in the two clusters to determine
+the distance between the two clusters. This makes it more robust to outliers.
+At last, ward's linkage is the most complex linkage method of the four.
+It uses the variance of the clusters to determine the distance between the clusters.
+The variance is the sum of the squared distances between the objects in the cluster
+and the mean of the cluster. When the increase in variance is at its minimum,
+the clusters will me berged. This linkage method is in many cases preferred over the other three
+because it is very robust to outliers and it is more sensitive to the shape of the clusters.
 
-\section*{Exersize 3}
+\section*{implementation}
+For the data clustering the agglomerative hierarchical clustering algorithm was implemented.
+The algorithm was implemented in Python and the results were plotted using matplotlib.
+All four linkage methods were implemented and tested on the dataset delivered by the course.
+Also the amount of clusters was determined using the dendrogram and the silhouette score.
 
-\section*{Exersize 4}
+\lstinputlisting[
+	language=python,
+	firstline=1,
+	lastline=23,
+	caption={Plotting the dendrogram},
+	label={lst:1:dendrogram}
+	]{../../code/dendrograms.py}
 
-\section*{Exersize 5}
+In \autoref{lst:1:dendrogram} the most important part of the code is shown which plots the dendrogram.
+The code imports the data from the csv file and and performs hierarchical clustering using
+the four linkage methods. The code then plots the dendrograms using the scipy library.
+This dendrogram can be used to determine the optimal number of clusters.
 
-\section*{Exersize 6}
+\lstinputlisting[
+	language=python,
+	firstline=13,
+	% lastline=23,
+	caption={Plotting the dendrogram},
+	label={lst:2:silhouette_scores}
+	]{../../code/silhouette_scores.py}
+
+In \autoref{lst:2:silhouette_scores} is the code shown which uses agglomerative hierarchical clustering
+using the built-in function of sklearn and calculates the silhouette scores.
+This code makes it possible to use either the silhouette calculation of the sklearn library
+as well as the possibility to calculate the silhouette score manually which uses the following formula:
+\begin{equation*}
+S = \frac{1}{n} \sum_{i=1}^n \frac{(b_i - a_i)}{max(a_i, b_i)}
+\end{equation*}
+Where $a_i$ is the average distance between the object and all other objects in the same cluster.
+$b_i$ is the average distance between the object and all other objects in the next nearest cluster.
+And $n$ is the number of objects in the dataset.
+\par
+The avreage scores are calculated for the four linkage methods and a range of possible number of clusters.
+After the scores are calculated, the code plots the scores using matplotlib in a bar chart.
+This chart makes it easy to find the optimal number of clusters.
+
+\lstinputlisting[
+	language=python,
+	% firstline=6,
+	% lastline=23,
+	caption={Plotting the clusters for different linkage methods},
+	label={lst:3:cluster_scatters}
+	]{../../code/cluster_scatters.py}
+
+In \autoref{lst:3:cluster_scatters} the code is shown which uses agglomerative hierarchical clustering
+with the four linkage methods and a range of number of clusters and plots the clusters using matplotlib.
+This way it is possible to see how the clusters are formed by the different linkage methods.
+\par
+What the code also is able to do is manually calculating the Within Cluster Sum of Squares
+\begin{equation*}
+	WSS= \sum_{i = 1}^{N_C} \sum_{x \in C_i} d(X, \bar{X}_{C_i} )^2
+\end{equation*}
+which represents the sum of the squared distances between the objects within the cluster. 
+And the Between Cluster Sum of Squares
+\begin{equation*}
+	BSS= \sum_{i = 1}^{N_C} \left\lvert C_i \right\rvert \cdot d(\bar{X}_{C_i},X)^2
+\end{equation*}
+Which represents the sum of the squared distances between the mean of the clusters and the objects in the dataset.
+This applied to the different linkage methods and range of number of clusters.
+These values are being printed in the console so they can be analyzed for each combination
+of linkage method and number of clusters.
+
+\section*{Results}
+
+\todo[inline]{Add results}
+
+\section*{Work distribution}
+
+\todo[inline]{Work distribution}
 
 \end{document}

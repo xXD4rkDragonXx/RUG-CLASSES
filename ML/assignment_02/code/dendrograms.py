@@ -7,8 +7,6 @@ from sklearn.metrics import silhouette_score
 
 AFFINITY = 'euclidean'
 LINKAGES = ['single', 'complete', 'average', 'ward']
-MINCLUSTERS = 2
-MAXCLUSTERS = 4
 
 # Read data from csv file
 data = pd.read_csv('data_clustering.csv', header=None)
