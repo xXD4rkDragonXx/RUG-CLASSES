@@ -326,6 +326,20 @@ In dendrograms you want the split to be as close as possible to the bottom of th
 The ward linkage delivers the best results because the clusters are not very spread out and the splits are lower in the dendrogram.
 The average linkage delivers the second best results because the clusters are not very spread out and the splits are lower in the dendrogram than the sinle linkage.
 
+\section{Bonus}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/silhoute_score.png}
+	\caption{Silhoute score for different linkages and number of clusters} 
+	\label{fig:18:silhoute_score}
+\end{figure}
+
+The silhoute score for different linkages and number of clusters is shown in \autoref{fig:18:silhoute_score}.
+The silhoute score is a measure of how similar an object is to its own cluster compared to other clusters.
+The score is the highest for ward linkage with 3 clusters.
+The score is the lowest for single linkage with 3 clusters.
+
 \section{Work distribution}
 
 This week the work has been devided relatively equally between the group members.
