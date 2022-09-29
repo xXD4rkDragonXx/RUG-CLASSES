@@ -12,14 +12,14 @@
 
 \maketitle
 
-\section*{Introduction}
+\section{Introduction}
 In this report, results of the second assignment of the course Machine Learning will be discussed.
 The assignment was to implement the agglomerative hierarchical clustering algorithm.
 Different linkage methods were implemented and tested on the dataset delivered by the course.
 The results of the different linkage methods and finding the optimal number
 of clusters are discussed in this report.
 
-\section*{Methods}
+\section{Methods}
 The agglomerative hierarchical clustering algorithm is an iterative algorithm which
 starts with each data point in its own cluster.
 The algorithm then iteratively merges the two closest clusters.
@@ -49,7 +49,7 @@ and the mean of the cluster. When the increase in variance is at its minimum,
 the clusters will me berged. This linkage method is in many cases preferred over the other three
 because it is very robust to outliers and it is more sensitive to the shape of the clusters.
 
-\section*{implementation}
+\section{implementation}
 For the data clustering the agglomerative hierarchical clustering algorithm was implemented.
 The algorithm was implemented in Python and the results were plotted using matplotlib.
 All four linkage methods were implemented and tested on the dataset delivered by the course.
@@ -117,12 +117,270 @@ This applied to the different linkage methods and range of number of clusters.
 These values are being printed in the console so they can be analyzed for each combination
 of linkage method and number of clusters.
 
-\section*{Results}
+\section{Results}
 
-\todo[inline]{Add results}
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/data_scatter.png}
+	\caption{Data scatter plot}
+	\label{fig:5:data_scatter}
+\end{figure}
 
-\section*{Work distribution}
+the data scatter plot is shown in \autoref{fig:5:data_scatter}.
+The data is not separated in clusters.
 
-\todo[inline]{Work distribution}
+\subsection{Dendrograms single linkage}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/dendrogram_single.png}
+	\caption{Dendrogram for single linkage}
+	\label{fig:1:dendrogram_single}
+\end{figure}
+
+The dendrogram for single linkage is shown in \autoref{fig:1:dendrogram_single}.
+The optimal number of clusters is 3 because the distance between the clusters is the smallest at this point.
+Single linkage is very sensitive to outliers and noise and this is visible in the dendrogram.
+This causes outliers and noise to be in their own cluster, making it hard to get a good result.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/single_2_clusters.png}
+	\caption{Single 2 clusters}
+	\label{fig:12:single_2_clusters}
+\end{figure}
+
+The clusters for single linkage with 2 clusters are shown in \autoref{fig:12:single_2_clusters}.
+One point is selected for a cluster and the other points are selected for the other cluster.
+This is because the distance between the points is the smallest for this combination.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/single_3_clusters.png}
+	\caption{Single 3 clusters}
+	\label{fig:13:single_3_clusters}
+\end{figure}
+
+The clusters for single linkage with 3 clusters are shown in \autoref{fig:13:single_3_clusters}.
+Here two clusters have only a single point and the third cluster has the other points.
+This is because the distance between the points is the smallest for this combination.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/single_4_clusters.png}
+	\caption{Single 4 clusters}
+	\label{fig:14:single_4_clusters}
+\end{figure}
+
+The clusters for single linkage with 4 clusters are shown in \autoref{fig:14:single_4_clusters}.
+Here three clusters have only a single point and the fourth cluster has the other points.
+This is because the distance between the points is the smallest for this combination.
+
+\subsection{Dendrograms complete linkage}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/dendrogram_complete.png}
+	\caption{Dendrogram for complete linkage}
+	\label{fig:2:dendrogram_complete}
+\end{figure}
+
+The dendrogram for complete linkage is shown in \autoref{fig:2:dendrogram_complete}.
+The optimal number of clusters is 3 because the distance between the clusters is the smallest at this point.
+The clusters are clearly separated and the clusters are not very spread out.
+The clusters are more spread out than the clusters for single linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/complete_2_clusters.png}
+	\caption{Complete 2 clusters}
+	\label{fig:9:complete_2_clusters}
+\end{figure}
+
+The clusters for complete linkage with 2 clusters are shown in \autoref{fig:9:complete_2_clusters}.
+Here the points are clearly split in two clusters.
+This is because the distance between the points is the smallest for this combination.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/complete_3_clusters.png}
+	\caption{Complete 3 clusters}
+	\label{fig:10:complete_3_clusters}
+\end{figure}
+
+The clusters for complete linkage with 3 clusters are shown in \autoref{fig:10:complete_3_clusters}.
+Here the points are clearly split in three clusters.
+This is because the distance between the points is the smallest for this combination.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/complete_4_clusters.png}
+	\caption{Complete 4 clusters}
+	\label{fig:11:complete_4_clusters}
+\end{figure}
+
+The clusters for complete linkage with 4 clusters are shown in \autoref{fig:11:complete_4_clusters}.
+Here the points are clearly split in four clusters.
+This is because the distance between the points is the smallest for this combination.
+
+\subsection{Dendrograms average linkage}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/dendrogram_average.png}
+	\caption{Dendrogram for average linkage}
+	\label{fig:3:dendrogram_average}
+\end{figure}
+
+The dendrogram for average linkage is shown in \autoref{fig:3:dendrogram_average}.
+The optimal number of clusters is 3 because the distance between the clusters is the smallest at this point.
+The clusters are clearly separated and the clusters are not very spread out.
+The clusters are more spread out than the clusters for complete linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/average_2_clusters.png}
+	\caption{Average 2 clusters}
+	\label{fig:6:average_2_clusters}
+\end{figure}
+
+The clusters for average linkage with 2 clusters are shown in \autoref{fig:6:average_2_clusters}.
+Here the points are clearly split in two clusters.
+This is because the distance between the points is the smallest for this combination using average linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/average_3_clusters.png}
+	\caption{Average 3 clusters}
+	\label{fig:7:average_3_clusters}
+\end{figure}
+
+The clusters for average linkage with 3 clusters are shown in \autoref{fig:7:average_3_clusters}.
+Here the points are clearly split in three clusters.
+This is because the distance between the points is the smallest for this combination using average linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/average_4_clusters.png}
+	\caption{Average 4 clusters}
+	\label{fig:8:average_4_clusters}
+\end{figure}
+
+The clusters for average linkage with 4 clusters are shown in \autoref{fig:8:average_4_clusters}.
+Here the points are clearly split in four clusters.
+This is because the distance between the points is the smallest for this combination using average linkage.
+
+\subsection{Dendrograms ward linkage}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/dendrogram_ward.png}
+	\caption{Dendrogram for ward's linkage}
+	\label{fig:4:dendrogram_ward}
+\end{figure}
+
+The dendrogram for ward's linkage is shown in \autoref{fig:4:dendrogram_ward}.
+The optimal number of clusters is 3 because the distance between the clusters is the smallest at this point.
+The clusters are clearly separated and the clusters are not very spread out.
+The clusters are more spread out than the clusters for average linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/ward_2_clusters.png}
+	\caption{Ward 2 clusters}
+	\label{fig:15:ward_2_clusters}
+\end{figure}
+
+The clusters for ward's linkage with 2 clusters are shown in \autoref{fig:15:ward_2_clusters}.
+Here the points are clearly split in two clusters.
+This is because the distance between the points is the smallest for this combination using ward's linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/ward_3_clusters.png}
+	\caption{Ward 3 clusters}
+	\label{fig:16:ward_3_clusters}
+\end{figure}
+
+The clusters for ward's linkage with 3 clusters are shown in \autoref{fig:16:ward_3_clusters}.
+Here the points are clearly split in three clusters.
+This is because the distance between the points is the smallest for this combination using ward's linkage.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/ward_4_clusters.png}
+	\caption{Ward 4 clusters}
+	\label{fig:17:ward_4_clusters}
+\end{figure}
+
+The clusters for ward's linkage with 4 clusters are shown in \autoref{fig:17:ward_4_clusters}.
+Here the points are clearly split in four clusters.
+This is because the distance between the points is the smallest for this combination using ward's linkage.
+
+\section{Discussion}
+
+The dendrograms for the different linkages are shown in \autoref{fig:1:dendrogram_single}, \autoref{fig:2:dendrogram_complete}, \autoref{fig:3:dendrogram_average} and \autoref{fig:4:dendrogram_ward}.
+The optimal number of clusters is 3 for all the linkages.
+The single linkage delivers the worst results because the clusters are very spread out and the splits are higher in the dendrogram.
+In dendrograms you want the split to be as close as possible to the bottom of the dendrogram.
+The ward linkage delivers the best results because the clusters are not very spread out and the splits are lower in the dendrogram.
+The average linkage delivers the second best results because the clusters are not very spread out and the splits are lower in the dendrogram than the sinle linkage.
+
+\section{Bonus}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/silhoute_score.png}
+	\caption{Silhoute score for different linkages and number of clusters} 
+	\label{fig:18:silhoute_score}
+\end{figure}
+
+The silhoute score for different linkages and number of clusters is shown in \autoref{fig:18:silhoute_score}.
+The silhoute score is a measure of how similar an object is to its own cluster compared to other clusters.
+The score is the highest for ward linkage with 3 clusters.
+The score is the lowest for single linkage with 3 clusters.
+
+\newpage
+
+\begin{verbatim}
+single WSS: 11.82 with 2 clusters
+single BSS: 0.28 with 2 clusters
+single WSS: 11.69 with 3 clusters
+single BSS: 0.36 with 3 clusters
+single WSS: 11.38 with 4 clusters
+single BSS: 0.59 with 4 clusters
+complete WSS: 7.04 with 2 clusters
+complete BSS: 0.12 with 2 clusters
+complete WSS: 6.37 with 3 clusters
+complete BSS: 0.28 with 3 clusters
+complete WSS: 3.27 with 4 clusters
+complete BSS: 0.33 with 4 clusters
+average WSS: 5.48 with 2 clusters
+average BSS: 0.09 with 2 clusters
+average WSS: 2.4 with 3 clusters
+average BSS: 0.15 with 3 clusters
+average WSS: 1.66 with 4 clusters
+average BSS: 0.27 with 4 clusters
+ward WSS: 5.47 with 2 clusters
+ward BSS: 0.09 with 2 clusters
+ward WSS: 2.41 with 3 clusters
+ward BSS: 0.15 with 3 clusters
+ward WSS: 1.69 with 4 clusters
+ward BSS: 0.26 with 4 clusters
+\end{verbatim}
+
+In the table above the WSS and BSS are shown for the different linkages and number of clusters.
+The WSS is the smallest for ward linkage with 4 clusters.
+The BSS is the smallest for ward linkage with 2 clusters.
+The WSS is the largest for single linkage with 2 clusters.
+The BSS is the largest for single linkage with 4 clusters.
+In conclusion the ward linkage delivers the best results because the WSS is the smallest and the BSS is the smallest.
+And the single linkage delivers the worst results because the WSS is the largest and the BSS is the largest.
+
+\section{Work distribution}
+
+This week the work has been devided relatively equally between the group members.
+Ramon has been working a bit more on the report because he has been working on the code for the dendrogram a bit more.
+While Stijn has spend more time on analysing and writing the report. Causing both of us to gain the same amount of knowledge.
 
 \end{document}
