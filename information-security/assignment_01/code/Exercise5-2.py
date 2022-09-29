@@ -1,18 +1,5 @@
 import sys
 
-# # import input from 0.in.txt
-# sys.stdin = open('0.in.txt', 'r')
-
-# # interpret input
-# input = sys.stdin.read().split()
-# minKeySize = int(input[0])
-# maxKeySize = int(input[1])
-# ciphertext = ''.join(input[2:])
-# likelyMostAccuringChar = 'e'
-
-# # replace all non-alphabetic characters with dashes and convert to lowercase
-# ciphertext = ''.join([c if c.isalpha() else '-' for c in ciphertext]).lower()
-
 
 def std(vector):
     # caculate the standard deviation of a vector
