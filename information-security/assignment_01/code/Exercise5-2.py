@@ -94,10 +94,8 @@ def handle_input(input):
 
 def main():
     totalInput = []
-    # get input text
-    for line in sys.stdin:
-        if line.strip() == '':
-            break
+    lines = sys.stdin.readlines()
+    for line in lines:
         totalInput.append(line)
     handle_input([totalInput[0], totalInput[1], ''.join(totalInput[2:])])
 
