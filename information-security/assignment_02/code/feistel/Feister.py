@@ -1,14 +1,10 @@
 import sys
 
-# read binary input from stdin and split at first accurance of 0xFF
-
-
+# read binary input from stdin and split at first two accurances of 0xFF
 def read_stdin():
     return sys.stdin.buffer.read().split(b'\xFF', 2)
 
 # read binary file
-
-
 def read_file(filename):
     with open(filename, 'rb') as f:
         return f.read()
@@ -51,11 +47,6 @@ def feistel(key, text, encrypt=True):
     return encrypted
             
 
-
-
-# crypt, key, text = read_file('2.in.txt').split(b'\xFF', 2)
-# print(feistel(key, text.replace(b'\r', b''), crypt == b'\x65').decode('utf-8'))
-
-# return encrypted/decrypted text
+# read input and print encrypted/decrypted text
 crypt, key, text = read_stdin()
 sys.stdout.buffer.write(feistel(key, text.replace(b'\r', b''), crypt == b'\x65'))
