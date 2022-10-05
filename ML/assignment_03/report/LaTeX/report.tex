@@ -15,8 +15,7 @@
 \section{Introduction}
 
 The method used in this assignment is the use of the Density-Based Spatial Clustering of Applications with Noise (DBSCAN) algorithm. 
-DBSCAN is a widely used data clustering algorithm
-which is commonly used in data mining and machine learning.
+DBSCAN is a widely used data clustering algorithm which is commonly used in data mining and machine learning.
 This algorithm is a density based clustering algorithm. 
 It is a density based clustering algorithm because it uses the density of points in a region to determine if they belong to the same cluster. 
 The algorithm is based on two parameters, the minimum number of points in a region and the maximum distance between points in a region. 
@@ -24,7 +23,7 @@ The algorithm is based on two parameters, the minimum number of points in a regi
 \section{Methods}
 
 DBSCAN groups together points that are close to each other based on two parameters: $\epsilon$ (epsilon) and $minPts$.
-The $\epsilon$ parameter is the maximum distance between two points to be considered close to each other.
+$\epsilon$ is the maximum distance between two points to be considered close to each other.
 The $minPts$ parameter is the minimum number of points that need to be close to a point for it to be considered a core point.
 Every point that is not a core point but is inside the $\epsilon$ of a core point is considered a border point.
 All connected core points and border points form a cluster. Every point that is neither a core point nor a border point is considered noise.
