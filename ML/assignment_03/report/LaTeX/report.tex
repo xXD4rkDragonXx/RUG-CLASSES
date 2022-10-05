@@ -23,13 +23,13 @@ The algorithm is based on two parameters, the minimum number of points in a regi
 The algorithm works as follows:
 \begin{enumerate}
 	\item For each point in the dataset, determine the number of points in a region around it.
-	\item If the number of points in the region is larger than the minimum number of points, the point is a core point.
-	\item If the number of points in the region is smaller than the minimum number of points and it belongs to the neighbors of a core point, it is a border point.
-	\item If the number of points in the region is smaller than the minimum number of points and it does not belong to the neighbors of a core point, it is a noise point.
+	\item If the number of points in the region is larger or equal to the minimum number of points, the point is a core point.
+	\item If the number of points in the region is smaller than the minimum number of points and it belongs to the neighbors of a core point, it becomes a border point.
+	\item If the number of points in the region is smaller than the minimum number of points and it does not belong to the neighbors of a core point, it becomes a noise point.
 	\item For each core point, determine the cluster it belongs to.
 	\item For each border point, determine the cluster it belongs to.
 \end{enumerate}
-this algorithm has a few advantages. you can use it to find clusters of any shape and size.
+This algorithm has a few advantages. you can use it to find clusters of any shape and size.
 There is no need to specify the number of clusters beforehand. And is also very robust to noise and outliers.
 This algorithm works best when you choose the minimum number of points based on the size and noise of the dataset.
 For two-dimensional data, the use of 4 as minimum number of points is recommended.
@@ -39,12 +39,34 @@ for higher dimensional data, the use of two times the dimensionality of the data
 
 \begin {figure}[H]
 	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.0493_k_3.png}
+	\caption{DBSCAN with eps=0.0493 and $k=3$}
+	\label{fig:dbscan_eps_0.0493_k_3}
+\end {figure}
+
+\autoref{fig:dbscan_eps_0.0493_k_3} shows the result of the DBSCAN algorithm with eps=0.0493 and k=3.
+The algorithm found multiple smaller clusters and multiple noise points.
+The clusters are very close to each other and are not clearly visible in the figure.
+
+\begin {figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/elbow_plot_k_3.png}
+	\caption{Elbow plot with $k=3$}
+	\label{fig:elbow_plot_k_3}
+\end {figure}
+
+\autoref{fig:elbow_plot_k_3} shows the elbow plot with $k=3$.
+The red dot is the elbow point determined by the researchers.
+This should be the place with the greatest change in the slope of the curve.
+
+\begin {figure}[H]
+	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.071_k_4.png}
-	\caption{DBSCAN with eps=0.071 and k=4}
+	\caption{DBSCAN with eps=0.071 and $k=4$}
 	\label{fig:dbscan_eps_0.071_k_4}
 \end {figure}
 
-The first figure shows the result of the DBSCAN algorithm with eps=0.071 and k=4.
+\autoref{fig:dbscan_eps_0.071_k_4} shows the result of the DBSCAN algorithm with eps=0.071 and k=4.
 The algorithm found 3 clusters and multiple noise points.
 The clusters are clearly visible in the figure.
 The clusters are not perfectly circular, but they are still clearly visible.
@@ -53,40 +75,22 @@ The noise points are also clearly visible in the figure.
 \begin {figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/elbow_plot_k_4.png}
-	\caption{Elbow plot with k=4}
+	\caption{Elbow plot with $k=4$}
 	\label{fig:elbow_plot_k_4}
 \end {figure}
 
-The second figure shows the elbow plot with k=4.
-
-\begin {figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.0493_k_3.png}
-	\caption{DBSCAN with eps=0.0493 and k=3}
-	\label{fig:dbscan_eps_0.0493_k_3}
-\end {figure}
-
-The third figure shows the result of the DBSCAN algorithm with eps=0.0493 and k=3.
-The algorithm found multiple smaller clusters and multiple noise points.
-The clusters are very close to each other and are not clearly visible in the figure.
-
-\begin {figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/elbow_plot_k_3.png}
-	\caption{Elbow plot with k=3}
-	\label{fig:elbow_plot_k_3}
-\end {figure}
-
-The fourth figure shows the elbow plot with k=3.
+\autoref{fig:elbow_plot_k_4} shows the elbow plot with $k=4$.
+The red dot is the elbow point determined by the researchers.
+This should be the place with the greatest change in the slope of the curve.
 
 \begin {figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.0748_k_5.png}
-	\caption{DBSCAN with eps=0.0748 and k=5}
+	\caption{DBSCAN with eps=0.0748 and $k=5$}
 	\label{fig:dbscan_eps_0.0748_k_5}
 \end {figure}
 
-The fifth figure shows the result of the DBSCAN algorithm with eps=0.0748 and k=5.
+\autoref{fig:dbscan_eps_0.0748_k_5} shows the result of the DBSCAN algorithm with eps=0.0748 and $k=5$.
 The algorithm found 3 clusters and multiple noise points.
 The clusters are clearly visible in the figure.
 This also shows outliers which are not clearly visible in the figure.
@@ -94,22 +98,28 @@ This also shows outliers which are not clearly visible in the figure.
 \begin {figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/elbow_plot_k_5.png}
-	\caption{Elbow plot with k=5}
+	\caption{Elbow plot with $k=5$}
 	\label{fig:elbow_plot_k_5}
 \end {figure}
 
-The sixth figure shows the elbow plot with k=5.
+\autoref{fig:elbow_plot_k_5} shows the elbow plot with $k=5$.
 
 \begin {figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/silhouette_scores.png}
+	\includegraphics[trim={0 5cm 0 5cm},clip,width=0.8\textwidth]{../../code/output/silhouette_scores.png}
 	\caption{Silhouette scores}
 	\label{fig:silhouette_scores}
 \end {figure}
 
-The seventh figure shows the silhouette scores for the different k values.
+\autoref{fig:silhouette_scores} shows the silhouette scores for the different k values.
 
 \section{Discussion}
+
+The silhouette scores show that the best value for $k=5$. The diference between the scores for
+$k=4$ and $k=5$ is very small.
+The fact that the researchers determined the elbow points themselves is a disadvantage
+and could have influenced the results. So realistically there is not a definitive best value for k when comparing 4 and 5.
+
 
 
 \end{document}
