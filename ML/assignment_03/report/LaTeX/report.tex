@@ -16,8 +16,28 @@
 
 \section*{Methods}
 
+The method used in this assignment is the use of the Density-based spatial clustering of applications with noise algorithm. 
+This algorithm is a density based clustering algorithm. 
+It is a density based clustering algorithm because it uses the density of points in a region to determine if they belong to the same cluster. 
+The algorithm is based on two parameters, the minimum number of points in a region and the maximum distance between points in a region. 
+The algorithm works as follows:
+\begin{enumerate}
+	\item For each point in the dataset, determine the number of points in a region around it.
+	\item If the number of points in the region is larger than the minimum number of points, the point is a core point.
+	\item If the number of points in the region is smaller than the minimum number of points and it belongs to the neighbors of a core point, it is a border point.
+	\item If the number of points in the region is smaller than the minimum number of points and it does not belong to the neighbors of a core point, it is a noise point.
+	\item For each core point, determine the cluster it belongs to.
+	\item For each border point, determine the cluster it belongs to.
+\end{enumerate}
+this algorithm has a few advantages. you can use it to find clusters of any shape and size.
+There is no need to specify the number of clusters beforehand. And is also very robust to noise and outliers.
+This algorithm works best when you choose the minimum number of points based on the size and noise of the dataset.
+For two-dimensional data, the use of 4 as minimum number of points is recommended.
+for higher dimensional data, the use of two times the dimensionality of the data is recommended.
+
 \section*{Experimental results}
 
 \section*{Discussion}
+
 
 \end{document}
