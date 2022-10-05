@@ -108,7 +108,7 @@ def elbowPlotKNearestNeighbors(data, k, highligted_point):
     plt.savefig('output/elbow_plot_k_' + str(k) + '.png')
 
 def showSilhouetteScores(scoreObjects):
-    # show table of silhouette scores using plt
+    # show table of silhouette scores
     plt.figure()
     plt.axis('off')
     plt.table(cellText=[
