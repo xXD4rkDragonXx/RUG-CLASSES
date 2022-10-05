@@ -7,6 +7,7 @@
 	studentNumberOne={5440769},
 	groupNumber={31}
 ]{reportStyle}
+\usepackage{tabularx}
 
 \begin{document}
 
@@ -134,6 +135,33 @@ So realistically there is not a definitive best value for k when comparing 4 and
 Furthermore, it advised to use 4 as the value for $k$, which could be a reason to choose $k=4$.
 To conclude, the best value for $k$ is either $4$ or $5$, both values are equally as fair to use. 
 
+\section*{Bonus}
 
+\begin{table}[H]
+	\begin{tabular}{|l|l|}
+	\hline
+	Precision  & 0.9753446447507953 \\ \hline
+	Recall     & 1.0                \\ \hline
+	F\_measure & 0.9875184538988055 \\ \hline
+	\end{tabular}
+	\caption{Evaluation of the DBSCAN algorithm}
+	\label{tab:evaluation}
+\end{table}
+
+\autoref{tab:evaluation} shows the evaluation of the DBSCAN algorithm.
+The precision is 0.9753446447507953, the recall is 1.0 and the F-measure is 0.9875184538988055.
+The precision is calculated by dividing the number of true positives by the number of true positives and false positives.
+The recall is calculated by dividing the number of true positives by the number of true positives and false negatives.
+The F-measure is calculated by dividing the precision and recall by the sum of the precision and recall.
+The F-measure is a harmonic mean of the precision and recall.
+The F-measure is a good measure to use when the precision and recall are not equally important.
+
+\section*{Work distribution}
+
+This week the work has been divided relatively equally between the group members.
+Ramon has written the majority of the code and Stijn has finished it off after together examining the code and functionality of it.
+For the report, Stijn has written the methods used and the majority of the results.
+Ramon Has written the discussion.
+All other parts have been written together and the final report is scanned by both Ramon and Stijn and they have discussed and implemented the possible changes.
 
 \end{document}
