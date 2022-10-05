@@ -7,7 +7,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import StandardScaler
 
 # Load data
-mat = scipy.io.loadmat("D:\\School\\Rug\\Pre-master\\Periode 1\\RUG-CLASSES\ML\\assignment_03\\bonus\\thyroid.mat")
+mat = scipy.io.loadmat("thyroid.mat")
 
 # Extract data
 X = mat['X']
