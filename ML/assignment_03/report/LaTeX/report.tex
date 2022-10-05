@@ -14,13 +14,22 @@
 
 \section{Introduction}
 
-\section{Methods}
-
-The method used in this assignment is the use of the Density-based spatial clustering of applications with noise algorithm. 
+The method used in this assignment is the use of the Density-Based Spatial Clustering of Applications with Noise (DBSCAN) algorithm. 
+DBSCAN is a widely used data clustering algorithm
+which is commonly used in data mining and machine learning.
 This algorithm is a density based clustering algorithm. 
 It is a density based clustering algorithm because it uses the density of points in a region to determine if they belong to the same cluster. 
 The algorithm is based on two parameters, the minimum number of points in a region and the maximum distance between points in a region. 
-The algorithm works as follows:
+
+\section{Methods}
+
+DBSCAN groups together points that are close to each other based on two parameters: $\epsilon$ (epsilon) and $minPts$.
+The $\epsilon$ parameter is the maximum distance between two points to be considered close to each other.
+The $minPts$ parameter is the minimum number of points that need to be close to a point for it to be considered a core point.
+Every point that is not a core point but is inside the $\epsilon$ of a core point is considered a border point.
+All connected core points and border points form a cluster. Every point that is neither a core point nor a border point is considered noise.
+\\\\In six steps, the algorithm works as follows:
+
 \begin{enumerate}
 	\item For each point in the dataset, determine the number of points in a region around it.
 	\item If the number of points in the region is larger or equal to the minimum number of points, the point is a core point.
@@ -40,11 +49,11 @@ for higher dimensional data, the use of two times the dimensionality of the data
 \begin {figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.0493_k_3.png}
-	\caption{DBSCAN with eps=0.0493 and $k=3$}
+	\caption{DBSCAN with $\epsilon=0.0493$ and $k=3$}
 	\label{fig:dbscan_eps_0.0493_k_3}
 \end {figure}
 
-\autoref{fig:dbscan_eps_0.0493_k_3} shows the result of the DBSCAN algorithm with eps=0.0493 and k=3.
+\autoref{fig:dbscan_eps_0.0493_k_3} shows the result of the DBSCAN algorithm with $\epsilon=0.0493$ and $k=3$.
 The algorithm found multiple smaller clusters and multiple noise points.
 The clusters are very close to each other and are not clearly visible in the figure.
 
@@ -62,11 +71,11 @@ This should be the place with the greatest change in the slope of the curve.
 \begin {figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.071_k_4.png}
-	\caption{DBSCAN with eps=0.071 and $k=4$}
+	\caption{DBSCAN with $\epsilon=0.071$ and $k=4$}
 	\label{fig:dbscan_eps_0.071_k_4}
 \end {figure}
 
-\autoref{fig:dbscan_eps_0.071_k_4} shows the result of the DBSCAN algorithm with eps=0.071 and k=4.
+\autoref{fig:dbscan_eps_0.071_k_4} shows the result of the DBSCAN algorithm with $\epsilon=0.071$ and $k=4$.
 The algorithm found 3 clusters and multiple noise points.
 The clusters are clearly visible in the figure.
 The clusters are not perfectly circular, but they are still clearly visible.
@@ -86,11 +95,11 @@ This should be the place with the greatest change in the slope of the curve.
 \begin {figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/dbscan_eps_0.0748_k_5.png}
-	\caption{DBSCAN with eps=0.0748 and $k=5$}
+	\caption{DBSCAN with $\epsilon=0.0748$ and $k=5$}
 	\label{fig:dbscan_eps_0.0748_k_5}
 \end {figure}
 
-\autoref{fig:dbscan_eps_0.0748_k_5} shows the result of the DBSCAN algorithm with eps=0.0748 and $k=5$.
+\autoref{fig:dbscan_eps_0.0748_k_5} shows the result of the DBSCAN algorithm with $\epsilon=0.0748$ and $k=5$.
 The algorithm found 3 clusters and multiple noise points.
 The clusters are clearly visible in the figure.
 This also shows outliers which are not clearly visible in the figure.
