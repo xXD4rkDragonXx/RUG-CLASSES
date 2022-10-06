@@ -96,8 +96,11 @@ def decrypt(numbers, d, n):
         decryptedNumbers.append(pow(num, d, n))
     return decryptedNumbers
 
-# get input
-input = interpret_input(read_stdin())
+# get input from file
+input = interpret_input(read_file('in/9.in.txt'))
+
+# get input from stdin
+# input = interpret_input(read_stdin())
 
 # get results and print them
 N = calcPubKeyPartN(input['p'], input['q'])
