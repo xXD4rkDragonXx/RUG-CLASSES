@@ -30,19 +30,19 @@ def interpret_input(input):
     inputObject['m'], inputObject['n'] = map(int, input[2].strip().split(' '))
     return inputObject
 
-# for the curve, we use the equation y^2 = x^3 + ax + b
-
 
 def extEuclid(a, b):
     """
     calculates d, s, t such that d = gcd(a,b) and d == a*s + b*t
     Returns d, s and t.
     """
-    if a == 0:
-        return b, 0, 1
+    # if b is 0, return a, 1 and 0
+    if b == 0:
+        return a, 1, 0
+    # if b is not 0, calculate d, s and t
     else:
-        d, t, x = extEuclid(b % a, a)
-        return d, x - (b // a) * t, t
+        d, s, t = extEuclid(b, a % b)
+        return d, t, s - (a // b) * t
 
 def posLam(lam, p):
     """
@@ -80,11 +80,17 @@ def pointAddition(P, Q, a, p):
     p is the parameter p of the curve.
     Returns the resulting point.
     """
+    # if P is the neutral element, return Q
+    if P == [0, 0]:
+        return Q
+    # if Q is the neutral element, return P
+    if Q == [0, 0]:
+        return P
     # if P and Q are the same point, calculate point doubling
     if P == Q:
         return pointDoubling(P, a, p)
-    # calculate lambda
-    lam = (Q[1] - P[1]) * extEuclid(Q[0] - P[0], p)[1]
+    # if P and Q are different points, calculate lambda
+    lam = (Q[1] - P[1]) * extEuclid(Q[0] - P[0], p)[1] % p
     # get positive lambda
     lam = posLam(lam, p)
     # calculate x
@@ -92,6 +98,7 @@ def pointAddition(P, Q, a, p):
     # calculate y
     y = (lam * (P[0] - x) - P[1]) % p
     return [x, y]
+
   
 def pointMultiplication(P, n, a, p):
     """
@@ -108,16 +115,16 @@ def pointMultiplication(P, n, a, p):
     # if n is even, calculate point doubling
     if n % 2 == 0:
         return pointMultiplication(pointDoubling(P, a, p), n // 2, a, p)
-    # if n is odd, calculate point addition
+    # if y is 0 and n is odd, return P
+    if P[1] == 0 and n % 2 == 1:
+        return P
+    # if n is odd, calculate point doubling and point addition
     else:
-        return pointAddition(P, pointMultiplication(pointDoubling(P, a, p), n // 2, a, p), a, p)
+        return pointAddition(pointMultiplication(pointDoubling(P, a, p), (n - 1) // 2, a, p), P, a, p)
 
 
-input = interpret_input(read_file('in/0.in.txt'))
+input = interpret_input(read_stdin())
+# input = interpret_input(read_file('in/1.in.txt'))
 
-# calculate shared key
-# sharedKey = calcSharedKey(input['coords'], input['m'], input['n'], input['a'], input['p'])
-
-# print(sharedKey)
-print(pointMultiplication(pointMultiplication(input['coords'], input['n'], input['a'], input['p']), input['m'], input['a'], input['p']))
-print(pointMultiplication(input['coords'], input['m']*input['n'], input['a'], input['p']))
+# print shared key
+print(tuple(pointMultiplication(input['coords'], input['m']*input['n'], input['a'], input['p'])))
