@@ -126,19 +126,20 @@ def generateVQPlots(k=[2,4], maxEpochs=10, learningRates=[0.1, 0.05, 0.01], rand
                 endPrototypes,
                 trajectories,
                 prototypes,
-                title="VQ Learning {} Epochs, {} Learning Rate and {} prototypes".format(maxEpochs, j, i),
+                title="VQ Learning {} Epochs, {} Learning Rate and {} prototypes {}".format(maxEpochs, j, i, "(stupid)" if not randomizeData else ""),
                 saveToFile=True,
-                fileName="output/vq-learning_e{}_K{}_LR{}.png".format(maxEpochs, j, i)
+                fileName="output/vq-learning_e{}_K{}_LR{}{}.png".format(maxEpochs, j, i, "_stupid" if not randomizeData else "")
             )
             # plot error
             plotError(
                 errorHistory,
-                title="Error {} Epochs, {} Learning Rate and {} prototypes".format(maxEpochs, j, i),
+                title="Error {} Epochs, {} Learning Rate and {} prototypes {}".format(maxEpochs, j, i, "(stupid)" if not randomizeData else ""),
                 saveToFile=True,
-                fileName="output/error_e{}_K{}_LR{}.png".format(maxEpochs, j, i)
+                fileName="output/error_e{}_K{}_LR{}{}.png".format(maxEpochs, j, i, "_stupid" if not randomizeData else "")
             )
 
 def main():
+    # generating plots for learning curve
     learningRates = [0.1, 0.07, 0.05, 0.03, 0.01, 0.005]
     K = [2, 4]
     # generate plots
@@ -149,6 +150,17 @@ def main():
         randomizeData=True,
         randomSeed=42
     )
+    # generating plots for "stupid"
+    learningRates = [0.1, 0.05, 0.01]
+    K = [4]
+    # generate plots
+    generateVQPlots(
+        k=K,
+        maxEpochs=10,
+        learningRates=learningRates,
+        randomizeData=False
+    )
+
 
 if __name__ == '__main__':
     main()
