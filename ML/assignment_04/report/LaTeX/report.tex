@@ -106,6 +106,19 @@ This is done by choosing the prototype vectors to be the $k$ data points that ar
 
 \section{Discussion}
 
+In this report we have implemented Vector Quantization and used it to classify data.
+We have also used learning curves to find the optimal values for $\eta$ and $K$.
+We have also used learning curves to find the optimal value for $t_{max}$.
+
+In \autoref{fig:vq-learning_e20_K0.1_LR2} we can see that the trajectory of the prototypes move towards the data points.
+This is because the prototypes are moved towards the data points by a fraction $\eta$ of the distance between the prototype and the data point.
+The prototypes are moved towards the data points because the quantization error is minimized by moving the prototypes towards the data points.
+
+In \autoref{fig:vq-learning_e20_K0.1_LR4} we can see that the trajectory of the prototypes move towards the data points.
+This is because the prototypes are moved towards the data points by a fraction $\eta$ of the distance between the prototype and the data point.
+The prototypes are moved towards the data points because the quantization error is minimized by moving the prototypes towards the data points.
+One thing that is different is that three of the prototypes stay close to each other while the other prototype moves towards the data points.
+
 \section{Bonus}
 
 \end{document}
