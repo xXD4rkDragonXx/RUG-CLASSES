@@ -26,7 +26,7 @@ Repeat this process for all the examples in the training set and the prototype v
 The prototype vectors are then used to classify new examples. \\
 
 Quantization error is the error that is made when using the prototype vectors to classify new examples.
-The quantization error is defined as the average squared distance between the prototype vectors and the examples in the training set.
+The quantization error is defined as the sum of distances between the prototype vectors and the examples in the training set.
 The quantization error is minimized by moving the prototype vectors towards the examples in the training set.
 The quantization error is also minimized by choosing a good set of prototype vectors.
 The prototype vectors should be chosen in a way that they are spread out over the data set.
@@ -35,6 +35,20 @@ The prototype vectors should also be chosen in a way that they are representativ
 This is done by choosing the prototype vectors to be the $k$ data points that are closest to the mean of the data set.
 
 \section{Learning curves}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR2.png}
+	\caption{Learning curve for Vector Quantization with $k=20$, $\eta=0.1$ and $L=2$}
+	\label{fig:vq-learning_e20_K0.1_LR2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR4.png}
+	\caption{Learning curve for Vector Quantization with $k=20$, $\eta=0.1$ and $L=4$}
+	\label{fig:vq-learning_e20_K0.1_LR4}
+\end{figure}
 
 \section{Trajectories of prototypes}
 
