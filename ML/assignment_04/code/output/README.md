@@ -1,0 +1,1 @@
+This directory is for the output of the code of the assignment.
