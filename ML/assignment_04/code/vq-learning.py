@@ -140,7 +140,7 @@ def generateVQPlots(k=[2,4], maxEpochs=10, learningRates=[0.1, 0.05, 0.01], rand
 
 def main():
     # generating plots for learning curve
-    learningRates = [0.1, 0.07, 0.05, 0.03, 0.01, 0.005]
+    learningRates = [0.1, 0.05, 0.01]
     K = [2, 4]
     # generate plots
     generateVQPlots(
