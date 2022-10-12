@@ -12,16 +12,24 @@
 
 \maketitle
 
-\section*{Exersize 1}
+\section{introduction}
 
-\section*{Exersize 2}
+\section{Methods}
 
-\section*{Exersize 3}
+Vector Quantization makes use of prototype vectors to represent the data and is often used for identification and grouping of clusters in similar data.
+To use Vector Quantization, we first need to define a set of prototype vectors $\mathbf{v}_1, \mathbf{v}_2, \ldots, \mathbf{v}_k$.
+After which present a single example $\mathbf{x}$, we can find the closest prototype vector $\mathbf{v}_i$ by minimizing the distance between $\mathbf{x}$ and $\mathbf{v}_i$.
+The distance between $\mathbf{x}$ and $\mathbf{v}_i$ is defined as the Euclidean distance between the two vectors.
+When the closest prototype vector $\mathbf{v}_i$ is found, we move the prototype vector $\mathbf{v}_i$ towards $\mathbf{x}$ by a small amount $\eta$.
+Repeat this process for all the examples in the training set and the prototype vectors will converge to a set of vectors that represent the data well.
+The prototype vectors are then used to classify new examples.
 
-\section*{Exersize 4}
+\section{Learning curves}
 
-\section*{Exersize 5}
+\section{Trajectories of prototypes}
 
-\section*{Exersize 6}
+\section{Discussion}
+
+\section{Bonus}
 
 \end{document}
