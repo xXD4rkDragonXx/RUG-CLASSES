@@ -25,7 +25,8 @@ When the closest prototype vector $\mathbf{v}_i$ is found, we move the prototype
 Repeat this process for all the examples in the training set and the prototype vectors will converge to a set of vectors that represent the data well.
 The prototype vectors are then used to classify new examples. \\
 
-Quantization error is the error that is made when using the prototype vectors to classify new examples.
+Quantization error is a number that is calculated when using the prototype vectors to classify new examples.
+To be able to estimate a good value for $k$, we can use the quantization error to find the optimal value for $k$, the error should be as low as possible.
 The quantization error is defined as the sum of distances between the prototype vectors and the examples in the training set.
 The quantization error is minimized by moving the prototype vectors towards the examples in the training set.
 The quantization error is also minimized by choosing a good set of prototype vectors.
@@ -39,85 +40,43 @@ This is done by choosing the prototype vectors to be the $k$ data points that ar
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.1_LR2.png}
-	\caption{Error for $\eta = 0.1$ and $\lambda = 2$}
+	\caption{Error for $\eta = 0.1$ and $K = 2$}
 	\label{fig:error_e20_K0.1_LR2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.01_LR2.png}
-	\caption{Error for $\eta = 0.01$ and $\lambda = 2$}
+	\caption{Error for $\eta = 0.01$ and $K = 2$}
 	\label{fig:error_e20_K0.01_LR2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.1_LR4.png}
-	\caption{Error for $\eta = 0.1$ and $\lambda = 4$}
+	\caption{Error for $\eta = 0.1$ and $K = 4$}
 	\label{fig:error_e20_K0.1_LR4}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.01_LR4.png}
-	\caption{Error for $\eta = 0.01$ and $\lambda = 4$}
+	\caption{Error for $\eta = 0.01$ and $K = 4$}
 	\label{fig:error_e20_K0.01_LR4}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.03_LR2.png}
-	\caption{Error for $\eta = 0.03$ and $\lambda = 2$}
-	\label{fig:error_e20_K0.03_LR2}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.03_LR4.png}
-	\caption{Error for $\eta = 0.03$ and $\lambda = 4$}
-	\label{fig:error_e20_K0.03_LR4}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.05_LR2.png}
-	\caption{Error for $\eta = 0.05$ and $\lambda = 2$}
+	\caption{Error for $\eta = 0.05$ and $K = 2$}
 	\label{fig:error_e20_K0.05_LR2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.05_LR4.png}
-	\caption{Error for $\eta = 0.05$ and $\lambda = 4$}
+	\caption{Error for $\eta = 0.05$ and $K = 4$}
 	\label{fig:error_e20_K0.05_LR4}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.005_LR2.png}
-	\caption{Error for $\eta = 0.005$ and $\lambda = 2$}
-	\label{fig:error_e20_K0.005_LR2}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.005_LR4.png}
-	\caption{Error for $\eta = 0.005$ and $\lambda = 4$}
-	\label{fig:error_e20_K0.005_LR4}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.07_LR2.png}
-	\caption{Error for $\eta = 0.07$ and $\lambda = 2$}
-	\label{fig:error_e20_K0.07_LR2}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.07_LR4.png}
-	\caption{Error for $\eta = 0.07$ and $\lambda = 4$}
-	\label{fig:error_e20_K0.07_LR4}
 \end{figure}
 
 \section{Trajectories of prototypes}
@@ -125,15 +84,24 @@ This is done by choosing the prototype vectors to be the $k$ data points that ar
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR2.png}
-	\caption{Learning curve for Vector Quantization with $k=20$, $\eta=0.1$ and $L=2$}
+	\caption{Learning curve for Vector Quantization with $k=20$, $\eta=0.1$ and $K=2$}
 	\label{fig:vq-learning_e20_K0.1_LR2}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR4.png}
-	\caption{Learning curve for Vector Quantization with $k=20$, $\eta=0.1$ and $L=4$}
+	\caption{Learning curve for Vector Quantization with $k=20$, $\eta=0.1$ and $K=4$}
 	\label{fig:vq-learning_e20_K0.1_LR4}
+\end{figure}
+
+\section{"Stupid" trajectories of prototypes}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e10_K0.1_LR4_stupid.png}
+	\caption{Learning curve for Vector Quantization with $t_max=10$, $\eta=0.1$ and $K=4$}
+	\label{fig:vq-learning_e20_K0.1_LR4_stupid}
 \end{figure}
 
 \section{Discussion}
