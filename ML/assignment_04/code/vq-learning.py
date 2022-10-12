@@ -10,6 +10,7 @@ def plotData(
         saveToFile=False,
         fileName="chart.png"
     ):
+    plt.figure()
     # initialize legend
     legend = []
     # plot data
@@ -24,16 +25,21 @@ def plotData(
     if startPosPrototypes is not None:
         plt.scatter(startPosPrototypes[:,0], startPosPrototypes[:,1], marker='o', color='green')
         legend.append('Start Prototypes')
+        # put start prototypes on top layer
+        plt.gca().collections[1].set_zorder(99)
     # plot prototypes if given
     if endPrototypes is not None:
-        plt.scatter(endPrototypes[:,0], endPrototypes[:,1], marker='o', color='red')
+        plt.scatter(endPrototypes[:,0], endPrototypes[:,1], marker='o', color='purple')
         legend.append('End Prototypes')
+        # put end prototypes on top layer
+        plt.gca().collections[2].set_zorder(99)
     # set size of plot
     plt.gcf().set_size_inches(10, 5)
     plt.legend(legend, loc='upper right')
     plt.title(title)
     if(saveToFile):
         plt.savefig(fileName)
+    plt.close()
 
 def plotError(
         error,
@@ -63,6 +69,7 @@ def plotError(
     plt.ylabel('Quantization Error')
     if(saveToFile):
         plt.savefig(fileName)
+    plt.close()
 
 def applyVQ(data, prototypes, maxEpochs=100, learningRate=0.1, randomizeData=True):
     # initialize variables
@@ -82,7 +89,7 @@ def applyVQ(data, prototypes, maxEpochs=100, learningRate=0.1, randomizeData=Tru
         # loop over data
         for x in data:
             # get index of nearest prototype
-            index = np.argmin(np.linalg.norm((prototypes - x)**2, axis=1))
+            index = np.argmin(np.linalg.norm(prototypes - x, axis=1))
             # update prototype
             prototypes[index] = prototypes[index] + learningRate * (x - prototypes[index])
         # get new prototypes
@@ -91,7 +98,7 @@ def applyVQ(data, prototypes, maxEpochs=100, learningRate=0.1, randomizeData=Tru
         for i in range(len(prototypes)):
             trajectories[i].append(newPrototypes[i])
         # calculate quantization error
-        quantizationError = np.sum(np.linalg.norm(data - prototypes[np.argmin(np.linalg.norm(prototypes - data[:,None], axis=2), axis=1)], axis=1))
+        quantizationError = np.sum(np.linalg.norm(data - newPrototypes[np.argmin(np.linalg.norm(newPrototypes - data[:,None], axis=2), axis=1)], axis=1)) 
         # save quantization error
         quantizationErrorHistory.append(quantizationError)
         # increase epoch
@@ -132,17 +139,16 @@ def generateVQPlots(k=[2,4], maxEpochs=10, learningRates=[0.1, 0.05, 0.01], rand
             )
 
 def main():
-    learningRates = [0.1, 0.07, 0.05, 0.03, 0.01, 0.005, 0.001]
+    learningRates = [0.1, 0.07, 0.05, 0.03, 0.01, 0.005]
     K = [2, 4]
     # generate plots
     generateVQPlots(
         k=K,
-        maxEpochs=100,
+        maxEpochs=20,
         learningRates=learningRates,
         randomizeData=True,
         randomSeed=42
     )
-    plt.show()
 
 if __name__ == '__main__':
     main()
