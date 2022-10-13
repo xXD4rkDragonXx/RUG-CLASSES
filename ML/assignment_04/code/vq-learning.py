@@ -63,6 +63,7 @@ def plotError(
     if movingAverage > 0:
         plt.plot(np.convolve(error, np.ones((movingAverage,))/movingAverage, mode='valid'))
         legend.append('Moving Average')
+    legend.append('Minimum')
     plt.legend(legend)
     plt.title(title)
     plt.xlabel('Epoch')
@@ -140,7 +141,17 @@ def generateVQPlots(k=[2,4], maxEpochs=10, learningRates=[0.1, 0.05, 0.01], rand
 
 def main():
     # generating plots for learning curve
-    learningRates = [0.1, 0.05, 0.01]
+    learningRates = [0.1]
+    K = [2, 4]
+    # generate plots
+    generateVQPlots(
+        k=K,
+        maxEpochs=10,
+        learningRates=learningRates,
+        randomizeData=True,
+        randomSeed=42
+    )
+    learningRates = [0.01]
     K = [2, 4]
     # generate plots
     generateVQPlots(
@@ -150,13 +161,32 @@ def main():
         randomizeData=True,
         randomSeed=42
     )
+    learningRates = [0.001]
+    K = [2, 4]
+    # generate plots
+    generateVQPlots(
+        k=K,
+        maxEpochs=50,
+        learningRates=learningRates,
+        randomizeData=True,
+        randomSeed=42
+    )
     # generating plots for "stupid"
-    learningRates = [0.1, 0.05, 0.01]
+    learningRates = [0.1, 0.01]
     K = [4]
     # generate plots
     generateVQPlots(
         k=K,
-        maxEpochs=10,
+        maxEpochs=20,
+        learningRates=learningRates,
+        randomizeData=False
+    )
+    learningRates = [0.001]
+    K = [4]
+    # generate plots
+    generateVQPlots(
+        k=K,
+        maxEpochs=50,
         learningRates=learningRates,
         randomizeData=False
     )

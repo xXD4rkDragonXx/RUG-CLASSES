@@ -30,11 +30,20 @@ After which present a single example $\mathbf{x}$, we can find the closest proto
 The distance between $\mathbf{x}$ and $\mathbf{v}_i$ is defined as the Euclidean distance between the two vectors.
 When the closest prototype vector $\mathbf{v}_i$ is found, we move the prototype vector $\mathbf{v}_i$ towards $\mathbf{x}$ by a fraction $\eta$ of the distance between $\mathbf{x}$ and $\mathbf{v}_i$.
 Repeat this process for all the examples in the training set and the prototype vectors will converge to a set of vectors that represent the data well.
+Every time all datapoints are used to update the prototype vectors, this is called an epoch.
 The prototype vectors are then used to classify new examples. \\
 
 Quantization error is a number that is calculated when using the prototype vectors to classify new examples.
-To be able to estimate a good value for $k$, we can use the quantization error to find the optimal value for $k$, the error should be as low as possible.
+To be able to estimate a good value for $k$, we can use the quantization error to find the optimal value for $k$,
+the error should be as low as possible while also being stable. Stability is important because it means that the error is not suddenly going up a lot when data is added or removed.
+If the error is not stable, it means that whenever the data changes, a new optimal number of epochs is needed to be found.
 The quantization error is defined as the sum of distances between the prototype vectors and the examples in the training set.
+The formula for the quantization error is given by:
+\begin{equation*}
+H_{VQ}=\sum_{j=1}^K \sum_{\mu=1}^P (x_{\mu}-w_j)^2
+\end{equation*}
+where $K$ is the number of prototypes, $P$ is the number of examples in the training set and $w_j$ is the prototype vector. \\
+
 The quantization error is minimized by moving the prototype vectors towards the examples in the training set.
 The quantization error is also minimized by choosing a good set of prototype vectors.
 The prototype vectors should be chosen in a way that they are spread out over the data set.
@@ -46,9 +55,9 @@ This is done by choosing the prototype vectors to be the $k$ data points that ar
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.1_LR2.png}
-	\caption{Error for $t_{max}=20$, $\eta = 0.1$ and $K = 2$}
-	\label{fig:error_e20_K0.1_LR2}
+	\includegraphics[width=0.8\textwidth]{../../code/output/error_e10_K0.1_LR2.png}
+	\caption{Error for $t_{max}=10$, $\eta = 0.1$ and $K = 2$}
+	\label{fig:error_e10_K0.1_LR2}
 \end{figure}
 
 \begin{figure}[H]
@@ -60,9 +69,16 @@ This is done by choosing the prototype vectors to be the $k$ data points that ar
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.1_LR4.png}
-	\caption{Error for $t_{max}=20$, $\eta = 0.1$ and $K = 4$}
-	\label{fig:error_e20_K0.1_LR4}
+	\includegraphics[width=0.8\textwidth]{../../code/output/error_e50_K0.001_LR2.png}
+	\caption{Error for $t_{max}=50$, $\eta = 0.001$ and $K = 2$}
+	\label{fig:error_e50_K0.001_LR2}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{../../code/output/error_e10_K0.1_LR4.png}
+	\caption{Error for $t_{max}=10$, $\eta = 0.1$ and $K = 4$}
+	\label{fig:error_e10_K0.1_LR4}
 \end{figure}
 
 \begin{figure}[H]
@@ -74,58 +90,80 @@ This is done by choosing the prototype vectors to be the $k$ data points that ar
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.05_LR2.png}
-	\caption{Error for $t_{max}=20$, $\eta = 0.05$ and $K = 2$}
-	\label{fig:error_e20_K0.05_LR2}
-\end{figure}
-
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/error_e20_K0.05_LR4.png}
-	\caption{Error for $t_{max}=20$, $\eta = 0.05$ and $K = 4$}
-	\label{fig:error_e20_K0.05_LR4}
+	\includegraphics[width=0.8\textwidth]{../../code/output/error_e50_K0.001_LR4.png}
+	\caption{Error for $t_{max}=50$, $\eta = 0.001$ and $K = 4$}
+	\label{fig:error_e50_K0.001_LR4}
 \end{figure}
 
 \section{Trajectories of prototypes}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR2.png}
-	\caption{Learning curve for Vector Quantization with $t_{max}=20$, $\eta=0.1$ and $K=2$}
-	\label{fig:vq-learning_e20_K0.1_LR2}
+	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e10_K0.1_LR4.png}
+	\caption{Trajectories of prototypes for Vector Quantization with $t_{max}=10$, $\eta=0.1$ and $K=4$}
+	\label{fig:vq-learning_e10_K0.1_LR4}
 \end{figure}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR4.png}
-	\caption{Learning curve for Vector Quantization with $t_{max}=20$, $\eta=0.1$ and $K=4$}
-	\label{fig:vq-learning_e20_K0.1_LR4}
+	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e50_K0.001_LR4.png}
+	\caption{Trajectories of prototypes for Vector Quantization with $t_{max}=50$, $\eta=0.001$ and $K=4$}
+	\label{fig:vq-learning_e50_K0.001_LR4}
 \end{figure}
-
-\section{"Stupid" trajectories of prototypes}
 
 \begin{figure}[H]
 	\centering
-	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e10_K0.1_LR4_stupid.png}
-	\caption{Learning curve for Vector Quantization with $t_{max}=10$, $\eta=0.1$ and $K=4$}
+	\includegraphics[width=0.8\textwidth]{../../code/output/vq-learning_e20_K0.1_LR4_stupid.png}
+	\caption{Trajectories of prototypes for Vector Quantization with $t_{max}=20$, $\eta=0.1$ and $K=4$}
 	\label{fig:vq-learning_e20_K0.1_LR4_stupid}
 \end{figure}
 
 \section{Discussion}
 
-In this report we have implemented Vector Quantization and used it to classify data.
-We have also used learning curves to find the optimal values for $\eta$ and $K$.
-We have also used learning curves to find the optimal value for $t_{max}$.
+\subsection*{Learning curves}
 
-In \autoref{fig:vq-learning_e20_K0.1_LR2} we can see that the trajectory of the prototypes move towards the data points.
-This is because the prototypes are moved towards the data points by a fraction $\eta$ of the distance between the prototype and the data point.
-The prototypes are moved towards the data points because the quantization error is minimized by moving the prototypes towards the data points.
+For $K=2$ in \autoref{fig:error_e10_K0.1_LR2} and \autoref{fig:error_e20_K0.01_LR2}
+we can see th error is decreasing very fast. Already after 1 epoch the error seems
+to be very low and after that it is not hardly getting any lower. This is because
+due to the high learning rate $\eta$ the prototypes are moving very fast towards the data points.
+When it is needed to do very view epochs, this can be a good thing, but this is almost never the case.
+The error is also not stable, which means that the optimal number of epochs is not the same when the data changes.
+the point at 7 epochs may be optimal in this example with exacly this data set, but it might not be optimal for an altered version. \\
 
-In \autoref{fig:vq-learning_e20_K0.1_LR4} we can see that the trajectory of the prototypes move towards the data points.
-This is because the prototypes are moved towards the data points by a fraction $\eta$ of the distance between the prototype and the data point.
-The prototypes are moved towards the data points because the quantization error is minimized by moving the prototypes towards the data points.
-One thing that is different is that three of the prototypes stay close to each other while the other prototype moves towards the data points.
+In \autoref{fig:error_e50_K0.001_LR2} we can see that the error is decreasing very slowly.
+This is because the learning rate is very low. This means that the prototypes are moving slowly towards the data points.
+Because of this, it is needed to do many epochs to get a good result. But when a good result is achieved, it is very stable.
+When the data changes, the error will not change a significant amount.
+All three reach around the same error, but using $\eta=0.001$ gives the most relieable results. \\
 
-\section{Bonus}
+Where with $K=2$ we saw a relatively stable error with a high $\eta$, with $K=4$ in
+\autoref{fig:error_e10_K0.1_LR4} and \autoref{fig:error_e20_K0.01_LR4} we see a more volatile error with a high $\eta$.
+This is because since there are more prototypes, they are more likely to be close to each other and therefore are closer to some datapoints
+in one epoch but are not in the other, which make them make big moves at semi-random moments.
+This makes analizing the dataset with a high $\eta$ even less usefull. \\
+
+In \autoref{fig:error_e50_K0.001_LR4} we see that the error is decreasing very slowly and being stable when it nears its minimum.
+This illustrates that with a low $\eta$, the chances of having a good working model are higher.
+
+\subsection*{Trajectories of prototypes}
+
+\autoref{fig:vq-learning_e10_K0.1_LR4} and \autoref{fig:vq-learning_e50_K0.001_LR4} perfectly demonstrate the effect of having a high $\eta$
+versus a low $\eta$. The high $\eta$ makes the prototypes move very fast towards the data points, which makes the error decrease very fast.
+But it also makes the prototypes change position very fast once it approaches a good position. This makes the quantization error unstable and the model less reliable.
+The low $\eta$ makes the prototypes move slowly towards the data points, which makes the error decrease slowly and stay stable once it reaches a good position.
+
+Also the vector quantization with $K=4$ and a "stupid" approach has been tested,
+This means that the datapoints are not shuffled every epoch. The order in which the datapoints are presented to the model is the same every epoch.
+As to be seen in \autoref{fig:vq-learning_e20_K0.1_LR4_stupid} the prototypes are moving fast towards one point and after that they are hardly moving at all.
+This is because the datapoints are presented in the same order every epoch, which means that the prototypes are moving towards the same datapoint every epoch.
+After not many epochs they reach a stop point at which they are not moving anymore because every epoch is a copy of the previous one,
+which means that the prototypes are not moving anymore because they are already at the optimal position.
+This is not beneficial for the model, because it will not try other positions and therefore will not find the very optimal position.
+
+\section{Work distribution}
+This week the work has been divided relatively between the group members as follows:
+Ramon has written the majority of the code and Stijn wrote the methods section after together examining the code and functionality of it.
+All other parts have been written together. The final report is scanned by both Ramon and Stijn and they have discussed and implemented the possible changes.
+Both group members have learned how to apply the vector quantization algorithm on a dataset and how to analyze it.
 
 \end{document}
