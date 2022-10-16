@@ -18,8 +18,8 @@ def initPrototypes(data, numExamples, numPrototypes, dim):
     Initialize prototypes.
     Requires labaled data.
     """
-    # order data by class
-    dataSorted = np.sort(data[:,2])
+    # sort data by class
+    dataSorted = data[data[:,dim].argsort()]
     # get random data point(s) for each class
     prototypes = np.zeros((numPrototypes, dim+1))
     for i in range(numPrototypes):
@@ -40,7 +40,7 @@ def main():
     # get dim and num of examples
     P, N = data.shape
     # set number of prototypes
-    K = 2
+    K = 4
     # set number of classes
     C = 2
     # set learning rate
