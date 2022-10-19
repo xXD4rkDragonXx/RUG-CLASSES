@@ -29,7 +29,7 @@ def main():
     legendInfo = []
     plt.figure()
     # execute learning vector quantization 1
-    newPrototypes, trainingErrors, prototypePositionHistory = lvq('lvq1', dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=10)
+    newPrototypes, trainingErrors, prototypePositionHistory = lvq('lvq1', dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=20)
     # plot data with different colors for different classes
     legendInfo.append(scatterPlotData(dataWithClasses))
     # add prototypes

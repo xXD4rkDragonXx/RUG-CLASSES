@@ -188,15 +188,19 @@ def plotErrorOverEpochs(trainingErrors, errorMovingAverage=5, customTitle=None):
     plt.figure()
     # replace 0 value of moving average with None to avoid plotting 0
     movingAverage = [trainingErrors[i][2] if trainingErrors[i][2] != 0 else None for i in range(len(trainingErrors))]
-    plt.plot([trainingErrors[i][1] for i in range(len(trainingErrors))], label='Error Percentage')
-    plt.plot([i for i in range(len(trainingErrors))], movingAverage, label='Moving Average ({})'.format(errorMovingAverage))
+    plt.plot([round(trainingErrors[i][1]*100, 1) for i in range(len(trainingErrors))], label='Error Percentage (%)')
+    plt.plot(
+        [i for i in range(len(trainingErrors))],
+        [round(ma*100, 1) if ma != None else None for ma in movingAverage],
+        label='Moving Average ({})'.format(errorMovingAverage)
+    )
     plt.legend()
     if customTitle:
         plt.title(customTitle)
     else:
         plt.title('Training Error over Epochs')
     plt.xlabel('Epochs')
-    plt.ylabel('Error')
+    plt.ylabel('Error (%)')
 
 def relabel_data(data, prototypes):
     """
