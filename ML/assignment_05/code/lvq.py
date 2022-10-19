@@ -77,9 +77,36 @@ def eaclidianDistance(x, y, labeled=True):
     else:
         return np.linalg.norm(x - y)
 
-def lvq1(data, prototypes, LR, maxEpochs, random=True, stopWhenStable=False, stableMovingAverage=5):
+def getClosestPrototype(point, prototypes, findClosestSameAndDifferent=False):
+    """
+    Returns closest prototype to point.
+    If findClosestSameAndDifferent is True, returns tuple of closest prototype to point with same class and closest prototype to point with different label.
+    """
+    # sort porotoypes by euclidian distance to point
+    prototypesSorted = sorted(prototypes, key=lambda x: eaclidianDistance(point, x))
+
+    if findClosestSameAndDifferent:
+        closestSameLabel = [None]
+        closestDifferentLabel = [None]
+        # find first prototype with same label and first prototype with different label
+        for prototype in prototypesSorted:
+            if prototype[-1] == point[-1] and closestSameLabel[0] == None:
+                closestSameLabel = prototype
+            elif prototype[-1] != point[-1] and closestDifferentLabel[0] == None:
+                closestDifferentLabel = prototype
+            # break if both prototypes have been found
+            if(closestSameLabel[0] != None and closestDifferentLabel[0] != None):
+                break
+        return closestSameLabel, closestDifferentLabel, prototypesSorted[0]
+    else:
+        # return closest prototype
+        return prototypesSorted[0]
+
+
+def lvq(method, data, prototypes, LR, maxEpochs, random=True, stopWhenStable=False, stableMovingAverage=5):
     """
     Execute Learning Vector Quantization 1.
+    `method` can be 'lvq1' or 'glvq'.
     `data`: labeled data
     `prototypes`: prototypes
     `LR`: learning rate
@@ -104,19 +131,28 @@ def lvq1(data, prototypes, LR, maxEpochs, random=True, stopWhenStable=False, sta
             np.random.shuffle(data)
         # loop over data
         for i in range(data.shape[0]):
-            # get closest prototype
-            closestPrototype = prototypes[0]
-            for j in range(prototypes.shape[0]):
-                if eaclidianDistance(data[i], prototypes[j]) < eaclidianDistance(data[i], closestPrototype):
-                    closestPrototype = prototypes[j]
-            # update closest prototype
-            changeBy = LR * (data[i][:-1] - closestPrototype[:-1])
-            if data[i][-1] == closestPrototype[-1]:
-                closestPrototype[:-1] += changeBy
+            # if method is glvq, find closest prototypes with same and different label
+            if method.lower() == 'glvq':
+                # get closest prototype and closest prototype of different class
+                closestSamePrototype, closestDifferentClass, closestPrototype = getClosestPrototype(data[i], prototypes, findClosestSameAndDifferent=True)
+                # update closest prototype of same class
+                closestSamePrototype[:-1] += LR * (data[i][:-1] - closestSamePrototype[:-1])
+                # update closest prototype of different class
+                closestDifferentClass[:-1] -= LR * (data[i][:-1] - closestDifferentClass[:-1])
+                if closestPrototype[-1] != data[i][-1]:
+                    errors += 1
             else:
-                closestPrototype[:-1] -= changeBy
-                # add error to counter
-                errors += 1
+                # if method is lvq1, find closest prototype
+                # get closest prototype
+                closestPrototype = getClosestPrototype(data[i], prototypes)
+                # update closest prototype
+                changeBy = LR * (data[i][:-1] - closestPrototype[:-1])
+                if data[i][-1] == closestPrototype[-1]:
+                    closestPrototype[:-1] += changeBy
+                else:
+                    closestPrototype[:-1] -= changeBy
+                    # add error to counter
+                    errors += 1
         # calculate training error
         errorPercentage = errors / data.shape[0]
         # calculate error moving average
@@ -139,6 +175,9 @@ def lvq1(data, prototypes, LR, maxEpochs, random=True, stopWhenStable=False, sta
             if max(differences) < 0.001:
                 # stop learning
                 return prototypes, trainingErrors, prototypePositionHistory
+        # if method is glvq, decrease LR 10%
+        if method.lower() == 'glvq':
+            LR *= 0.9
         
     return prototypes, trainingErrors, prototypePositionHistory
 
@@ -176,10 +215,10 @@ def relabel_data(data, prototypes):
 
 def convertLabelToNumber(data):
     """
-    Convert labels to numbers.
+    Convert labels to integers when lables are given in strings.
     return:
-    `data`: data with labels as numbers
-    `labels`: list of labels
+    `data`: data with labels as integers
+    `labels`: list of labels with their original name in order of label integers
     """
     # get last column of pandas dataframe
     labels = np.unique(data.iloc[:, -1].values)
@@ -193,78 +232,3 @@ def convertLabelToNumber(data):
     data = data.astype(float)
     # return data and labels
     return data, labels
-
-def main():
-    """Main function."""
-    # set seed for repeated results
-    np.random.seed(42)
-    # Load data
-    data = loadCSV('lvqdata.csv')
-    # get dim and num of examples
-    P, N = data.shape
-    # set number of prototypes
-    K = 4
-    # set number of classes
-    C = 2
-    # set learning rate
-    LR = 0.002
-    # set max number of epochs
-    TMAX = 500
-    # divide data into classes
-    dataWithClasses = divideIntoClasses(data, C, N)
-
-    # initialize prototypes
-    prototypes = initPrototypes(dataWithClasses, P, K, N, initAtClassMean=False)
-    
-    legendInfo = []
-    plt.figure()
-    # execute learning vector quantization 1
-    newPrototypes, trainingErrors, prototypePositionHistory = lvq1(dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=10)
-    # plot data with different colors for different classes
-    legendInfo.append(scatterPlotData(dataWithClasses))
-    # add prototypes
-    legendInfo.append(scatterPlotPrototypes(newPrototypes))
-    # add prototypes trajectory
-    legendInfo.append(scatterPlotPrototypeTrajectory(prototypePositionHistory)[0])
-    # set title
-    plt.title('LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
-    # add legend to plot 
-    plt.legend(handles=legendInfo)
-
-    # plot new data with different colors for different classes
-    plt.figure()
-    newData = relabel_data(data, newPrototypes)
-    scatterPlotData(newData)
-    # add prototypes
-    scatterPlotPrototypes(newPrototypes)
-    plt.title('LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
-    plt.legend()
-
-    # plot error over epochs
-    plotErrorOverEpochs(trainingErrors, errorMovingAverage=10)
-
-    # import iris data
-    irisData = loadCSV('iris.csv', includesText=True)
-    # get dim and num of examples
-    P = irisData.shape[0]
-    N = irisData.shape[1] - 1
-    # convert lable name to number
-    newIrisData, lableNames = convertLabelToNumber(irisData)
-    # set number of prototypes
-    K = 6
-    # set learning rate
-    LR = 0.005
-    # set max number of epochs
-    TMAX = 500
-    # generate prototypes
-    prototypes = initPrototypes(newIrisData, P, K, N)
-    # execute learning vector quantization 1
-    newPrototypes, trainingErrors, prototypePositionHistory = lvq1(newIrisData, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=10)
-    # plot error over epochs
-    plotErrorOverEpochs(trainingErrors, errorMovingAverage=10, customTitle='Iris Data Error over Epochs')
-
-    # show all plots
-    plt.show()
-
-if __name__ == '__main__':
-    main()
