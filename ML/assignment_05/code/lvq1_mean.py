@@ -24,12 +24,12 @@ def main():
     dataWithClasses = divideIntoClasses(data, C, N)
 
     # initialize prototypes
-    prototypes = initPrototypes(dataWithClasses, P, K, N, initAtClassMean=False)
+    prototypes = initPrototypes(dataWithClasses, P, K, N, initAtClassMean=True)
     
     legendInfo = []
     plt.figure()
     # execute learning vector quantization 1
-    newPrototypes, trainingErrors, prototypePositionHistory = lvq('glvq', dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=10)
+    newPrototypes, trainingErrors, prototypePositionHistory = lvq('lvq1', dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=20)
     # plot data with different colors for different classes
     legendInfo.append(scatterPlotData(dataWithClasses))
     # add prototypes
@@ -37,11 +37,11 @@ def main():
     # add prototypes trajectory
     legendInfo.append(scatterPlotPrototypeTrajectory(prototypePositionHistory)[0])
     # set title
-    plt.title('GLVQ with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
+    plt.title('LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
     # add legend to plot 
     plt.legend(handles=legendInfo)
     # save plot
-    plt.savefig('output/glvq_scatter_{}_{}_{}.png'.format(K, C, LR))
+    plt.savefig('output/lvq1_mean_{}_{}_{}.png'.format(K, C, LR))
 
     # plot new data with different colors for different classes
     plt.figure()
@@ -49,12 +49,16 @@ def main():
     scatterPlotData(newData)
     # add prototypes
     scatterPlotPrototypes(newPrototypes)
-    plt.title('GLVQ with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
+    plt.title('LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
+    # add legend to plot
     plt.legend()
-    # plot error over epochs
-    plotErrorOverEpochs(trainingErrors, errorMovingAverage=10)
     # save plot
-    plt.savefig('output/glvq_error_{}_{}_{}.png'.format(K, C, LR))
+    plt.savefig('output/lvq1_mean_{}_{}_{}_new_labels.png'.format(K, C, LR))
+
+    # plot error over epochs
+    plotErrorOverEpochs(trainingErrors, errorMovingAverage=10, customTitle='LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
+    # save plot
+    plt.savefig('output/lvq1_mean_error_{}_{}_{}.png'.format(K, C, LR))
 
     # show all plots
     plt.show()

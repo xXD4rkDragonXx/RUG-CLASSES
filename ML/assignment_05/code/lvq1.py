@@ -13,7 +13,7 @@ def main():
     # get dim and num of examples
     P, N = data.shape
     # set number of prototypes
-    K = 2
+    K = 4
     # set number of classes
     C = 2
     # set learning rate
@@ -38,10 +38,10 @@ def main():
     legendInfo.append(scatterPlotPrototypeTrajectory(prototypePositionHistory)[0])
     # set title
     plt.title('LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
-    # save plot
-    plt.savefig('output/lvq1_{}_{}_{}.png'.format(K, C, LR))
     # add legend to plot 
     plt.legend(handles=legendInfo)
+    # save plot
+    plt.savefig('output/lvq1_{}_{}_{}.png'.format(K, C, LR))
 
     # plot new data with different colors for different classes
     plt.figure()
@@ -50,9 +50,10 @@ def main():
     # add prototypes
     scatterPlotPrototypes(newPrototypes)
     plt.title('LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
+    # add legend to plot
+    plt.legend()
     # save plot
     plt.savefig('output/lvq1_{}_{}_{}_new_labels.png'.format(K, C, LR))
-    plt.legend()
 
     # plot error over epochs
     plotErrorOverEpochs(trainingErrors, errorMovingAverage=10, customTitle='LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
