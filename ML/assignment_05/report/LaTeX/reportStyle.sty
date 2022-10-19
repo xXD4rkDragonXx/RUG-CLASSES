@@ -42,22 +42,24 @@
 \definecolor{light-gray}{gray}{0.95}
 
 \RequirePackage{listings}
-\lstset{frame=tb,
-  language=Python,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\ttfamily},
-  backgroundcolor=\color{backcolour},
+\lstset{
+  language=Python, 
+	tabsize = 3, 
+	columns=flexible, 
+	breaklines = true,
   numbers=left,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  tabsize=3
+  numberstyle=\color{gray},
+	backgroundcolor=\color{light-gray},
+	keepspaces=true,
+	showspaces=false,
+	showstringspaces=false,
+	basicstyle=\ttfamily,
+	commentstyle=\color[rgb]{0.05,0.18,0.15},
+	keywordstyle=[1]\color[rgb]{0,0,0.75},
+	keywordstyle=[2]\color[rgb]{0.5,0.0,0.0},
+	keywordstyle=[3]\color[rgb]{0.127,0.427,0.514},
+	keywordstyle=[4]\color[rgb]{0.4,0.4,0.4},
+	stringstyle=\color[rgb]{0.639,0.082,0.082},	
 }
 
 %Math

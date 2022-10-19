@@ -14,13 +14,13 @@ def divideIntoClasses(data, numClasses, dim):
     """Divide data into classes by adding column with class number."""
     data = np.insert(data, dim, 0, axis=1)
     for i in range(numClasses):
-        data[i*(100//numClasses):(i+1)*(100//numClasses), dim] = i
+        data[i*(data.shape[0]//numClasses):(i+1)*(data.shape[0]//numClasses), dim] = i
     return data
 
 def initPrototypes(data, numExamples, numPrototypes, dim, random=True, initAtClassMean=False):
     """
     Initialize prototypes.
-    Requires labaled data.
+    Requires labeled data.
     """
     # sort data by class
     dataSorted = data[data[:,dim].argsort()]
