@@ -56,7 +56,7 @@ def main():
     plt.savefig('output/lvq1_mean_{}_{}_{}_new_labels.png'.format(K, C, LR))
 
     # plot error over epochs
-    plotErrorOverEpochs(trainingErrors, errorMovingAverage=10, customTitle='LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
+    plotErrorOverEpochs(trainingErrors, errorMovingAverage=20, customTitle='LVQ1 with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
     # save plot
     plt.savefig('output/lvq1_mean_error_{}_{}_{}.png'.format(K, C, LR))
 

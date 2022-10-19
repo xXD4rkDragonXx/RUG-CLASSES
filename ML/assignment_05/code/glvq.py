@@ -29,7 +29,7 @@ def main():
     legendInfo = []
     plt.figure()
     # execute learning vector quantization 1
-    newPrototypes, trainingErrors, prototypePositionHistory = lvq('glvq', dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=10)
+    newPrototypes, trainingErrors, prototypePositionHistory = lvq('glvq', dataWithClasses, prototypes, LR, TMAX, stopWhenStable=True, stableMovingAverage=20)
     # plot data with different colors for different classes
     legendInfo.append(scatterPlotData(dataWithClasses))
     # add prototypes
@@ -52,7 +52,7 @@ def main():
     plt.title('GLVQ with {} prototypes, {} classes and {} learning rate'.format(K, C, LR))
     plt.legend()
     # plot error over epochs
-    plotErrorOverEpochs(trainingErrors, errorMovingAverage=10)
+    plotErrorOverEpochs(trainingErrors, errorMovingAverage=20)
     # save plot
     plt.savefig('output/glvq_error_{}_{}_{}.png'.format(K, C, LR))
 
