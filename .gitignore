@@ -3,6 +3,7 @@
 !**/LaTeX/*.tex
 !**/LaTeX/*.pdf
 !**/LaTeX/*.sty
+!**/LaTeX/*.txt
 
 # Python generated images
 **/output/*.png
