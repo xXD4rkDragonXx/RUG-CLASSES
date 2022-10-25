@@ -9,7 +9,7 @@ def read_stdin():
 
 def main():
     # this makes it possible to read from stdin when no filename is given on execution
-    # execute with: python tiger_hash.py [readfrom]
+    # execute with: python tigerHash.py [readfrom]
     if len(sys.argv) > 1:
         data = read_file(sys.argv[1])
     else:
