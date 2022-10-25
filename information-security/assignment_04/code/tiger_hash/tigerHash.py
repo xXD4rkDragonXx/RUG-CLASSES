@@ -186,15 +186,18 @@ def tiger_hash(data):
 
 def main():
     # this makes it possible to read from stdin when no filename is given on execution
-    # execute with: "python tigerHash.py [readfrom]" to read from file
+    # execute with: "python tigerHash.py [read_from]" to read from file
     if len(sys.argv) > 1:
         data = read_file(sys.argv[1])
     else:
         data = read_stdin()
 
     hash = tiger_hash(data)
-    # write correct hash to stdout if given using command
+
+    # if desired output is also given in the run command, write to stdout
+    # "python tigerHash.py [read_in_from] [read_out_from]" to read input and desired output from file
     if len(sys.argv) > 2:
+        # write correct hash to stdout if given using command
         print("generated hash: " + hash.hex())
         data = read_file(sys.argv[2])
         print("expected hash:  " + data.hex())
