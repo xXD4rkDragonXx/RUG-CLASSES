@@ -54,9 +54,8 @@ def divide_blocks(data, blockSize, usePadding):
     else:
         blocks.append(b'\x01' + b'\x00' * (63 - len(data) % blockSize))
         blocks.append(b'\x00' * (blockSize - 8))
-    # append the length of the data in bytes as a `blockSize` byte integer
-    blocks[-1] += b''+len(data).to_bytes(8, 'big')
-
+    # append the length of the data in bits times 8 as a `blockSize` byte integer
+    blocks[-1] += b''+(len(data)*8).to_bytes(8, 'big')
     return blocks
 
 def tiger_hash_inner_round(a, b, c, word, sboxes, mul):
