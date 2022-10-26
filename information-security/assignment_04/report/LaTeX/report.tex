@@ -101,11 +101,61 @@
 
 \section*{Exercise 2}
 
-
+Code for this exercise can be found at Themis.
 
 \section*{Exercise 3}
 
+Code for this exercise can be found at Themis.
+
 \section*{Exercise 4}
+
+To compute this probability, the best way to approach this is by calculating The
+probability of everyone having a distinct fingerprint and subtracting that from 1.
+But how do we calculate that probability?\\
+We can take the product of the probabilities of each person getting a distinct fingerprint.
+This can be calculated using the following formula:
+\begin{equation}
+	\label{eq:1}
+	P_{distinct}(t, p)=\prod_{n=1}^{p} \frac{t+1-n}{t}
+\end{equation}
+Where $t$ is the number of possible fingerprints and $p$ is the number of people.
+This equation can be simplified to:
+\begin{equation}
+	\label{eq:2}
+	P_{distinct}(t, p)=\frac{\frac{t!}{(t-p)!}}{t^p}
+\end{equation}
+If we put in the values $t=2^{160}$ and $p=7.5\times10^{9}$, it becomes apparent the simplified
+equation is not very helpful. It has to calculate $(2^{160})^{7.5\times10^{9}}$, which is an unimaginably large number.
+No computer can calculate this number. Therefore, we have to use the original equation.
+Code can be written to calculate this probability, calculations have pointed out this will take
+around 25 minutes to complete.\\
+Doing this with a basic script would however not work. For these types of calculations we need
+high precision floating point numbers. Python does not have these by default. Computers in general
+cannot easily compute with high precision floating point numbers needed for this calculation.
+If we want to calculate this probability, we need to use a library that can handle these numbers.
+But doing this makes the calculation take significantly longer. So long that it is not feasible to
+calculate this probability this way. And even then, the code would most likely output a wrong
+answer due to the physical limitations of computers. We have to approximate the probability.
+
+Let us take a look at equation \ref{eq:1} again. Since $p \ll t$, and also $p^{2} \ll t$, we can approximate the product function
+by using the following approximation:
+\begin{equation}
+	\label{eq:3}
+	P_{collision}(t, p) \approx \frac{p^{2}}{2t}
+\end{equation}
+This equation is not fully accurate, but it is accurate enough for this problem.
+Filling in the values $t=2^{160}$ and $p=7.5\times10^{9}$, we get:
+\begin{equation}
+	\label{eq:4}
+	P_{collision}(t, p) \approx \frac{(7.5\times10^{9})^{2}}{2\times2^{160}} \approx 2\times10^{-29}
+\end{equation}
+This is a very small probability. This shows that getting a hash collision is highly unlikely.
+This probability is negligible as of today.\\
+
+% \begin{equation}
+% 	\label{eq:5}
+% 	(1 - x)^{p} \geq (1 - p \times x)~for~0 \leq x \leq 1
+% \end{equation}
 
 \section*{Exercise 5}
 
