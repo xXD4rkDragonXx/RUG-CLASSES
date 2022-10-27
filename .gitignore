@@ -4,6 +4,7 @@
 !**/LaTeX/*.pdf
 !**/LaTeX/*.sty
 !**/LaTeX/*.txt
+!**/LaTeX/media
 
 # Python generated images
 **/output/*.png
