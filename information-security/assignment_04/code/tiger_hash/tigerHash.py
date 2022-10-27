@@ -52,10 +52,10 @@ def divide_blocks(data, blockSize, usePadding):
     # if neither, append a 1 byte, 0 bytes until the end of the block and then
     # append 0 bytes until the modulo `blockSize` is `blockSize` - 8
     else:
-        blocks.append(b'\x01' + b'\x00' * (63 - len(data) % blockSize))
+        blocks[-1] += b'\x01' + b'\x00' * (63 - len(data) % blockSize)
         blocks.append(b'\x00' * (blockSize - 8))
     # append the length of the data in bits times 8 as a `blockSize` byte integer
-    blocks[-1] += b''+(len(data)*8).to_bytes(8, 'big')
+    blocks[-1] += b''+(len(data)*8).to_bytes(8, 'little')
     return blocks
 
 def tiger_hash_inner_round(a, b, c, word, sboxes, mul):
@@ -71,6 +71,7 @@ def tiger_hash_inner_round(a, b, c, word, sboxes, mul):
     `mul` is the multiplier.
     """
     c ^= word
+    c &= 0xFFFFFFFFFFFFFFFF
     # divide c in 1 byte blocks of type int
     cBlocks = [c >> (i * 8) & 0xFF for i in range(8)]
     # get the S boxes for the 8 bytes of c
@@ -86,7 +87,6 @@ def tiger_hash_inner_round(a, b, c, word, sboxes, mul):
     a = (a - (s00 ^ s12 ^ s24 ^ s36)) & 0xFFFFFFFFFFFFFFFF
     b = (b + (s31 ^ s23 ^ s15 ^ s07)) & 0xFFFFFFFFFFFFFFFF
     b = (b * mul) & 0xFFFFFFFFFFFFFFFF
-
     return a, b, c
 
 def generate_key(block):
@@ -96,26 +96,25 @@ def generate_key(block):
     `block` is the block of data to be hashed.
     """
     # split the block into 8 byte blocks of type int
-    words = [int.from_bytes(block[i:i+8], 'big') for i in range(0, len(block), 8)]
+    words = [int.from_bytes(block[i:i+8], 'little') for i in range(0, len(block), 8)]
     # calculate the new key block
-    words[0] = (words[0] - (words[7] ^ 0xA5A5A5A5A5A5A5A5)) & 0xFFFFFFFFFFFFFFFF
-    words[1] = (words[1] ^ words[0]) & 0xFFFFFFFFFFFFFFFF
+    words[0] = (words[0] - (words[7] ^ 0xA5A5A5A5A5A5A5A5) & 0xFFFFFFFFFFFFFFFF) & 0xFFFFFFFFFFFFFFFF
+    words[1] ^= words[0]
     words[2] = (words[2] + words[1]) & 0xFFFFFFFFFFFFFFFF
-    words[3] = (words[3] - (words[2] ^ ((~words[1]) << 19))) & 0xFFFFFFFFFFFFFFFF
-    words[4] = (words[4] ^ words[3]) & 0xFFFFFFFFFFFFFFFF
+    words[3] = (words[3] - (words[2] ^ ((~words[1] & 0xFFFFFFFFFFFFFFFF) << 19) & 0xFFFFFFFFFFFFFFFF)) & 0xFFFFFFFFFFFFFFFF
+    words[4] ^= words[3]
     words[5] = (words[5] + words[4]) & 0xFFFFFFFFFFFFFFFF
-    words[6] = (words[6] - (words[5] ^ ((~words[4]) >> 23))) & 0xFFFFFFFFFFFFFFFF
-    words[7] = (words[7] ^ words[6]) & 0xFFFFFFFFFFFFFFFF
+    words[6] = (words[6] - (words[5] ^ ((~words[4] & 0xFFFFFFFFFFFFFFFF) >> 23) & 0xFFFFFFFFFFFFFFFF)) & 0xFFFFFFFFFFFFFFFF
+    words[7] ^= words[6]
     words[0] = (words[0] + words[7]) & 0xFFFFFFFFFFFFFFFF
-    words[1] = (words[1] - (words[0] ^ ((~words[7]) << 19))) & 0xFFFFFFFFFFFFFFFF
-    words[2] = (words[2] ^ words[1]) & 0xFFFFFFFFFFFFFFFF
+    words[1] = (words[1] - (words[0] ^ ((~words[7] & 0xFFFFFFFFFFFFFFFF) << 19) & 0xFFFFFFFFFFFFFFFF)) & 0xFFFFFFFFFFFFFFFF
+    words[2] ^= words[1]
     words[3] = (words[3] + words[2]) & 0xFFFFFFFFFFFFFFFF
-    words[4] = (words[4] - (words[3] ^ ((~words[2]) >> 23))) & 0xFFFFFFFFFFFFFFFF
-    words[5] = (words[5] ^ words[4]) & 0xFFFFFFFFFFFFFFFF
+    words[4] = (words[4] - (words[3] ^ ((~words[2] & 0xFFFFFFFFFFFFFFFF) >> 23) & 0xFFFFFFFFFFFFFFFF)) & 0xFFFFFFFFFFFFFFFF
+    words[5] ^= words[4]
     words[6] = (words[6] + words[5]) & 0xFFFFFFFFFFFFFFFF
-    words[7] = (words[7] - (words[6] ^ 0x0123456789ABCDEF)) & 0xFFFFFFFFFFFFFFFF
-
-    return b''.join([word.to_bytes(8, 'big') for word in words])
+    words[7] = (words[7] - (words[6] ^ 0x0123456789ABCDEF) & 0xFFFFFFFFFFFFFFFF) & 0xFFFFFFFFFFFFFFFF
+    return b''.join([word.to_bytes(8, 'little') for word in words])
 
 def tiger_hash_outer_round(a, b, c, block, mul, sBoxes, genNewKey=True):
     """
@@ -128,16 +127,16 @@ def tiger_hash_outer_round(a, b, c, block, mul, sBoxes, genNewKey=True):
     `genNewKey` is a boolean that indicates whether a new key should be generated.
     """
     # split the block into 8 byte blocks of type int
-    words = [int.from_bytes(block[i:i+8], 'big') for i in range(0, len(block), 8)]
+    words = [int.from_bytes(block[i:i+8], 'little') for i in range(0, len(block), 8)]
     # perform the 8 inner rounds
     a, b, c = tiger_hash_inner_round(a, b, c, words[0], sBoxes, mul)
-    a, b, c = tiger_hash_inner_round(c, a, b, words[1], sBoxes, mul)
+    a, b, c = tiger_hash_inner_round(b, c, a, words[1], sBoxes, mul)
     a, b, c = tiger_hash_inner_round(b, c, a, words[2], sBoxes, mul)
-    a, b, c = tiger_hash_inner_round(a, b, c, words[3], sBoxes, mul)
-    a, b, c = tiger_hash_inner_round(c, a, b, words[4], sBoxes, mul)
+    a, b, c = tiger_hash_inner_round(b, c, a, words[3], sBoxes, mul)
+    a, b, c = tiger_hash_inner_round(b, c, a, words[4], sBoxes, mul)
     a, b, c = tiger_hash_inner_round(b, c, a, words[5], sBoxes, mul)
-    a, b, c = tiger_hash_inner_round(a, b, c, words[6], sBoxes, mul)
-    a, b, c = tiger_hash_inner_round(c, a, b, words[7], sBoxes, mul)
+    a, b, c = tiger_hash_inner_round(b, c, a, words[6], sBoxes, mul)
+    a, b, c = tiger_hash_inner_round(b, c, a, words[7], sBoxes, mul)
     # generate the key block if necessary
     if genNewKey:
         newKeyBlock = generate_key(block)
@@ -172,16 +171,16 @@ def tiger_hash(data):
         bb = b
         cc = c
         # do all 3 outer rounds
-        aa, bb, cc, block = tiger_hash_outer_round(aa, bb, cc, block, 5, S)
-        aa, bb, cc, block = tiger_hash_outer_round(cc, aa, bb, block, 7, S)
-        aa, bb, cc = tiger_hash_outer_round(bb, cc, aa, block, 9, S, False)
+        a, b, c, block = tiger_hash_outer_round(a, b, c, block, 5, S)
+        a, b, c, block = tiger_hash_outer_round(b, c, a, block, 7, S)
+        c, a, b = tiger_hash_outer_round(b, c, a, block, 9, S, False)
         # combine the new hash values with the old ones
         a = (a ^ aa) & 0xFFFFFFFFFFFFFFFF
         b = (b - bb) & 0xFFFFFFFFFFFFFFFF
         c = (c + cc) & 0xFFFFFFFFFFFFFFFF
 
     # return the hash values as bytes
-    return a.to_bytes(8, 'big') + b.to_bytes(8, 'big') + c.to_bytes(8, 'big')
+    return a.to_bytes(8, 'little') + b.to_bytes(8, 'little') + c.to_bytes(8, 'little')
 
 def main():
     # this makes it possible to read from stdin when no filename is given on execution
