@@ -170,15 +170,44 @@ This probability is negligible as of today.\\
 	the second class shares the interests of the pharmaceutical sector and the third class shares the
 	interests of the media sector.\\
 	\item The diagram for the conflict of interest classes is:
-	\begin{figure}[h]
+	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{./media/chinese_wall_policy.drawio.png}
+		\caption{Conflict of interest classes, with the Chinese wall policy.}
 	\end{figure}
+	Where the orange octagons represent the conflict of interest classes,
+	the green rounded rectangles represent the clients and the blue parallelograms represent the documents.
+
 \end{enumerate}
 
 \section*{Exercise 6}
 
+\begin{enumerate}
+	\item This policy targets subjects with the role named \texttt{Manager} and the
+	resource named \texttt{Report1}. If both values are given but one or more of these conditions is not met, e.g. the role \texttt{Employee} is given,
+	the policy will consider target to be "No Match". If previous situations do not apply and one or more values are not given,
+	the policy will consider the target to be "Indeterminate" because both of the values must be present.\\
+	When the target is a match, the two rules are checked. The first rule checks whether access should
+	be denied. This first rule has two conditions. The first condition checks for the subject client.
+	If for this condition the value "C" is given, this specific condition is met and will return true.
+	The second condition checks whether the resource is confidential or not. If this value is not given, the
+	condition will assume the resource is not confidential. If the resource is confidential, the condition will return true.
+	When both conditions returned true, the first rule will return an access decision of "Deny".
+	The second rule will return an access decision of "Permit" no matter what.\\
+	Since this policy has a \texttt{deny-overrides rule-combining} algorithm, the deny decision has priority over the permit decision.
+	Therefore, the second rule will only apply if the first rule does not apply.\\
 
+	In short, the policy will deny access to the resource \texttt{Report1} for the subject with the role \texttt{Manager} if the subject client
+	is given as "C" and the resource is confidential, otherwise it will grant access. If the subject role is not \texttt{Manager}, or the resource is not \texttt{Report1},
+	the policy will not grant or deny access to any resource.\\
+	
+	\item First of all, the values \texttt{subject(division, Finance)} and \texttt{action(action-id, read)} are not used by the policy,
+	so there is no need discussing those values. When the target is checked, both values are given and both conditions are met. The subject
+	role is \texttt{Manager} and the resource ID is \texttt{Report1}.\\
+	The client value is not given, however when this is not given, the policy assumes the client is not "C". The resource is confidential because
+	\texttt{resource(confidential, true)}, but since the client is not "C", access is not getting denied. The second rule will return an access decision of "Permit" and that also will
+	be the final access decision.\\
+\end{enumerate}
 
 \section*{Exercise 7}
 
