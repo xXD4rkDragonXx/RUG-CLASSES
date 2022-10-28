@@ -211,6 +211,19 @@ This probability is negligible as of today.\\
 
 \section*{Exercise 7}
 
+Kerberos ensures that the authentication is completed within the authentication's allowed lifespan
+by saving the timestamp of the authentication. The timestamp is saved in the Ticket Granting Ticket (TGT).
+This ticket is also sent to the client. The client can use this ticket to request a service ticket from the
+Kerberos server. The Kerberos server will check the timestamp of the TGT. If the timestamp is still valid,
+the Kerberos server will grant the service ticket. If the timestamp is not valid, the Kerberos server will
+deny the service ticket.
+The Ticket Granting Ticket is encrypted with the Ticket Granting Service's (TGS) secret key. This ensures
+that the client cannot change the timestamp of the TGT.
+
+The client receives the TGT with the encrypted timestamp because one of the goals of Kerberos is to
+be stateless. This is what makes Kerberos so scalable. The Kerberos server does not need to keep track
+of the authentication's timestamp. The client can keep track of this information that way.
+
 \section*{Exercise 8}
 
 \section*{Exercise 9}
