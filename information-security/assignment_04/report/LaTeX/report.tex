@@ -226,7 +226,16 @@ of the authentication's timestamp. The client can keep track of this information
 
 \section*{Exercise 8}
 
-
+\begin{enumerate}
+	\item SSL does not imply authentication. When using SSL, the client and server can authenticate each other.
+	However, the server does not need to authenticate the client. To do proper authentication, the client
+	needs to send a certificate to the server. The server can then check the certificate to see if it is valid.
+	\item The meaning of "doing authentication" is that the client and server are sure that they are communicating
+	with the correct party. This is done by using a certificate. The certificate is signed by a trusted authority.
+	\item \textit{https://www.icce.rug.nl} is properly authenticated because the certificate is verified by a trusted authority.
+	The certificate is issued by "GEANT Vereniging" and the final certificate authority is "AAA Certification Services".
+	\item The certificate of \textit{https://www.icce.rug.nl} is issued on 2022-01-20 and will expire on 2023-01-21.
+\end{enumerate}
 
 \section*{Exercise 9}
 
